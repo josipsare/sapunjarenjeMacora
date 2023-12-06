@@ -12,6 +12,8 @@ library(utils)
 library(stringr)
 library(forcats)
 library(lubridate)
+library(graphics)
+library(plotrix)
 ```
 
 
@@ -24,25 +26,76 @@ data
 #mozemo gledati više žanrova kao da je svaki svoj stupac ili budu svi u jednom stupcu pa da trazimo u tom stringu odredeni žanr
 data_genre_sep <- separate(data,Genre,into = c("Genre_1","Genre_2","Genre_3","Genre_4"),sep = "/",remove = T)
 data_genre_sep
-data_genre_sep$Genre_1 %>% factor()-> genre_1_factor
-data_genre_sep$Genre_2 %>% factor(exclude = NA)-> genre_2_factor
-data_genre_sep$Genre_3 %>% factor(exclude = NA)-> genre_3_factor
-data_genre_sep$Genre_4 %>% factor(exclude = NA) -> genre_4_factor
 
-combined <- unlist(list(genre_1_factor,genre_2_factor,genre_3_factor,genre_4_factor))
-levels(combined) <- str_trim(levels(combined))
-combined %>% fct_collapse("Musical" = c("Musical","Musicial"))->combined
-combined %>% fct_collapse("Action-thriller" = c("Action-thriller","Action thriller"))->combined
-combined %>% fct_collapse("Heist" = c("Heist","Heist film"))->combined
-combined %>% fct_collapse("Romantic drama" = c("Romantic drama","Romance drama"))->combined
-combined %>% fct_collapse("Romantic teenage drama" = c("Romantic teenage drama","Romantic teen drama"))->combined
-combined %>% fct_collapse("Science fiction" = c("Science fiction","Science Fiction"))->combined
 
-combined %>% table() %>% sort()
-sort(table(combined))
+```
+
+
+**ODNOS ŽANRA I DULJINE**
+```{r}
+data1 <- data_genre_sep
+
+genre_1_runtime <-data1[,c("Genre_1","Runtime")]
+genre_2_runtime <-data1[,c("Genre_2","Runtime")] 
+genre_3_runtime <-data1[,c("Genre_3","Runtime")] 
+genre_4_runtime <-data1[,c("Genre_4","Runtime")]
+
+colnames(genre_1_runtime)[1] <- "Genre"
+colnames(genre_2_runtime)[1] <- "Genre"
+colnames(genre_3_runtime)[1] <- "Genre"
+colnames(genre_4_runtime)[1] <- "Genre"
+
+genre_runtime <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
+genre_runtime
+genre_runtime$Genre <- str_trim(genre_runtime$Genre)
+
+genre_runtime$Genre[genre_runtime$Genre=="Musicial"] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre=="Action thriller"] <- "Action-thriller"
+genre_runtime$Genre[genre_runtime$Genre=="Heist film"] <- "Heist"
+genre_runtime$Genre[genre_runtime$Genre=="Romance drama"] <- "Romantic drama"
+genre_runtime$Genre[genre_runtime$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_runtime$Genre[genre_runtime$Genre=="Science Fiction"] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Action","Action comedy","Action-adventure","Action-thriller")] <- "Action"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Adventure","Adventure-romance")] <- "Adventure"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Animated musical comedy","Animation")] <- "Animation"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Black comedy","Comedy","Comedy horror","Comedy mystery","Comedy-drama","Coming-of-age comedy-drama","Dark comedy","Dance comedy")] <- "Comedy"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Christian musical","Christmas","Christmas comedy","Christmas musical")] <- "Christmas"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Crime drama","Crime thriller")] <- "Crime"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Drama","Drama-Comedy","Supernatural drama")] <- "Drama"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Family","Family film")] <- "Family"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Historical drama","Historical-epic")] <- "Historical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Horror-thriller","Horror thriller","Horror comedy","Horror anthology","Horror")] <- "Horror"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Musical","Musical comedy")] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Political thriller","Psychological thriller","Psychological thriller drama")] <- "Psychological"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Romantic comedy","Romantic comedy-drama","Romantic drama","Romance","Romantic teenage drama","Romantic thriller")] <- "Romance"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Science fiction adventure","Science fiction thriller")] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Sports film","Sports-drama")] <- "Sports"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Spy thriller","Thriller")] <- "Thriller"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Superhero","Superhero-Comedy")] <- "Superhero"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Teen comedy horror","Teen comedy-drama")] <- "Teen"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Variety Show","Variety show")] <- "Variety"
+genre_runtime$Genre[genre_runtime$Genre %in% c("War","War drama","War-Comedy")] <- "War"
+
+
+genre_runtime %>% group_by(Genre) %>% summarise(mean(Runtime))->genre_runtime_mean
+genre_runtime_mean <- na.omit(genre_runtime_mean)
+genre_runtime_mean
+
+
+hist(genre_runtime_mean$`mean(Runtime)`,main = "Frekvenicija duljine filma",xlab = "Prosječno trajanje")
+plot(as.factor(genre_runtime_mean$Genre),genre_runtime_mean$`mean(Runtime)`,type="p",xlab="žanrovi",ylab="duljina")
+?plot
+
+list_runtime <- genre_runtime_mean$`mean(Runtime)`
+names(list_runtime) <- genre_runtime_mean$Genre
+
+list_runtime %>% sort()
+
+pie(table(genre_runtime$Genre))
+genre_runtime$Genre %>% table() %>% sort()
 
 # Create a table of the factor variable
-factor_table <- table(combined)
+factor_table <- table(genre_runtime$Genre)
 
 # Convert the table to percentage
 combined_percentage <- prop.table(factor_table) * 100
@@ -53,73 +106,53 @@ print(factor_table)
 
 # Print the table as percentages
 print("\nTable as Percentages:")
-print(combined_percentage)
+combined_percentage %>% sort()
 
-
-
+barplot(table(genre_runtime$Genre))
+barplot(genre_runtime_mean$`mean(Runtime)`,xlab = "trajanje")
+?barplot
 
 ```
 
 ```{r}
-data %>% group_by(Genre) %>% summarise(avgLen=mean(Runtime))->summ
-
-total_minutes <- summ$avgLen
-
-# Convert the total minutes to a duration
-#duration <- period(minutes = floor(total_minutes), seconds = round((total_minutes %% 1) * 60))
-# Format the duration as a string in "hh:mm:ss" format
-#formatted_duration <- sprintf("%02d:%02d:%02d",hour(duration), minute(duration), second(duration))
-
-# Print the result
-print(paste("Duration:", formatted_duration))
-#summ$avgLen <- formatted_duration
-summ
-
-summ[summ$Genre %in% c("Action thriller","Action-thriller"),"Genre"] <- "Action thriller"
-summ[summ$Genre %in% c("Action thriller","Action-thriller"),"Genre"]
-summ
-
-class(summ$avgLen)
-
-summ %>% 
- group_by(Genre) %>% 
- summarise(mean(avgLen))
-
-
-
-```
-
-
-```{r}
-data1 <- data_genre_sep
 data_genre_sep$Genre_1 <- str_trim(data_genre_sep$Genre_1)
 data_genre_sep$Genre_2 <- str_trim(data_genre_sep$Genre_2)
 data_genre_sep$Genre_3 <- str_trim(data_genre_sep$Genre_3)
 data_genre_sep$Genre_4 <- str_trim(data_genre_sep$Genre_4)
-data1 %>% group_by(Genre_1) %>% summarise(avgLen=mean(Runtime))->genre_1_mean
-data1 %>% group_by(Genre_2) %>% summarise(avgLen=mean(Runtime))->genre_2_mean
-data1 %>% group_by(Genre_3) %>% summarise(avgLen=mean(Runtime))->genre_3_mean
-data1 %>% group_by(Genre_4) %>% summarise(avgLen=mean(Runtime))->genre_4_mean
-colnames(genre_1_mean)[1] <- "Genre"
-colnames(genre_2_mean)[1] <- "Genre"
-colnames(genre_3_mean)[1] <- "Genre"
-colnames(genre_4_mean)[1] <- "Genre"
 
-genre_mean <- rbind(genre_1_mean,genre_2_mean,genre_3_mean,genre_4_mean)
-genre_mean
+data_genre_sep
 
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Musicial"] <- "Musical"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Heist film"] <- "Heist"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Science Fiction"] <- "Science fiction"
 
-genre_mean$Genre[genre_mean$Genre=="Musicial"] <- "Musical"
-genre_mean$Genre[genre_mean$Genre=="Action thriller"] <- "Action-thriller"
-genre_mean$Genre[genre_mean$Genre=="Heist film"] <- "Heist"
-genre_mean$Genre[genre_mean$Genre=="Romance drama"] <- "Romantic drama"
-genre_mean$Genre[genre_mean$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
-genre_mean$Genre[genre_mean$Genre=="Science Fiction"] <- "Science fiction"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Musicial"] <- "Musical"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Heist film"] <- "Heist"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Science Fiction"] <- "Science fiction"
 
-genre_mean %>% group_by(Genre) %>% summarise(mean(avgLen))->genre_mean
-genre_mean
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Musicial"] <- "Musical"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Heist film"] <- "Heist"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Science Fiction"] <- "Science fiction"
 
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Musicial"] <- "Musical"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Heist film"] <- "Heist"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Science Fiction"] <- "Science fiction"
+
+sredena_tablica <- data_genre_sep
+sredena_tablica
+nrow(sredena_tablica[((sredena_tablica$Genre_3=="Musicial")&(!is.na(sredena_tablica$Genre_3))),])
 
 ```
-
 

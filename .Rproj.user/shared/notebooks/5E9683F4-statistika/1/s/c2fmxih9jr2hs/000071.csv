@@ -1,0 +1,1 @@
+"0","plot(as.factor(genre_runtime_mean$Genre),genre_runtime_mean$`mean(Runtime)`,type=""p"",xlab=""žanrovi"",ylab=""duljina"")"

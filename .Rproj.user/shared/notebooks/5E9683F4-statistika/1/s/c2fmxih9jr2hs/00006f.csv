@@ -1,0 +1,3 @@
+"0",""
+"0",""
+"0","hist(genre_runtime_mean$`mean(Runtime)`,main = ""Frekvenicija duljine filma"",xlab = ""Prosječno trajanje"")"
