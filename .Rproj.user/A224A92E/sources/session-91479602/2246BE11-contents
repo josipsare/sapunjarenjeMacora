@@ -1,0 +1,150 @@
+---
+title: "projekt"
+output: html_document
+date: "2023-12-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(utils)
+library(stringr)
+library(forcats)
+library(lubridate)
+```
+
+
+**Racunanje frekvencije žanrova**
+```{r}
+data <- read_csv("NetflixOriginals.csv")
+data
+
+
+#mozemo gledati više žanrova kao da je svaki svoj stupac ili budu svi u jednom stupcu pa da trazimo u tom stringu odredeni žanr
+data_genre_sep <- separate(data,Genre,into = c("Genre_1","Genre_2","Genre_3","Genre_4"),sep = "/",remove = T)
+data_genre_sep
+data_genre_sep$Genre_1 %>% factor()-> genre_1_factor
+data_genre_sep$Genre_2 %>% factor(exclude = NA)-> genre_2_factor
+data_genre_sep$Genre_3 %>% factor(exclude = NA)-> genre_3_factor
+data_genre_sep$Genre_4 %>% factor(exclude = NA) -> genre_4_factor
+
+combined <- unlist(list(genre_1_factor,genre_2_factor,genre_3_factor,genre_4_factor))
+levels(combined) <- str_trim(levels(combined))
+combined %>% fct_collapse("Musical" = c("Musical","Musicial"))->combined
+combined %>% fct_collapse("Action-thriller" = c("Action-thriller","Action thriller"))->combined
+combined %>% fct_collapse("Heist" = c("Heist","Heist film"))->combined
+combined %>% fct_collapse("Romantic drama" = c("Romantic drama","Romance drama"))->combined
+combined %>% fct_collapse("Romantic teenage drama" = c("Romantic teenage drama","Romantic teen drama"))->combined
+combined %>% fct_collapse("Science fiction" = c("Science fiction","Science Fiction"))->combined
+
+combined %>% table() %>% sort()
+sort(table(combined))
+
+# Create a table of the factor variable
+factor_table <- table(combined)
+
+# Convert the table to percentage
+combined_percentage <- prop.table(factor_table) * 100
+
+# Print the original table
+print("Original Table:")
+print(factor_table)
+
+# Print the table as percentages
+print("\nTable as Percentages:")
+print(combined_percentage)
+
+
+
+
+```
+
+```{r}
+data %>% group_by(Genre) %>% summarise(avgLen=mean(Runtime))->summ
+
+total_minutes <- summ$avgLen
+
+# Convert the total minutes to a duration
+#duration <- period(minutes = floor(total_minutes), seconds = round((total_minutes %% 1) * 60))
+# Format the duration as a string in "hh:mm:ss" format
+#formatted_duration <- sprintf("%02d:%02d:%02d",hour(duration), minute(duration), second(duration))
+
+
+```
+
+
+```{r}
+data1 <- data_genre_sep
+data_genre_sep$Genre_1 <- str_trim(data_genre_sep$Genre_1)
+data_genre_sep$Genre_2 <- str_trim(data_genre_sep$Genre_2)
+data_genre_sep$Genre_3 <- str_trim(data_genre_sep$Genre_3)
+data_genre_sep$Genre_4 <- str_trim(data_genre_sep$Genre_4)
+data1 %>% group_by(Genre_1) %>% summarise(avgLen=mean(Runtime))->genre_1_mean
+data1 %>% group_by(Genre_2) %>% summarise(avgLen=mean(Runtime))->genre_2_mean
+data1 %>% group_by(Genre_3) %>% summarise(avgLen=mean(Runtime))->genre_3_mean
+data1 %>% group_by(Genre_4) %>% summarise(avgLen=mean(Runtime))->genre_4_mean
+colnames(genre_1_mean)[1] <- "Genre"
+colnames(genre_2_mean)[1] <- "Genre"
+colnames(genre_3_mean)[1] <- "Genre"
+colnames(genre_4_mean)[1] <- "Genre"
+
+genre_mean <- rbind(genre_1_mean,genre_2_mean,genre_3_mean,genre_4_mean)
+genre_mean
+
+
+genre_mean$Genre[genre_mean$Genre=="Musicial"] <- "Musical"
+genre_mean$Genre[genre_mean$Genre=="Action thriller"] <- "Action-thriller"
+genre_mean$Genre[genre_mean$Genre=="Heist film"] <- "Heist"
+genre_mean$Genre[genre_mean$Genre=="Romance drama"] <- "Romantic drama"
+genre_mean$Genre[genre_mean$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_mean$Genre[genre_mean$Genre=="Science Fiction"] <- "Science fiction"
+
+genre_mean %>% group_by(Genre) %>% summarise(mean(avgLen))->genre_mean
+genre_mean
+
+
+```
+
+```{r}
+data_genre_sep$Genre_1 <- str_trim(data_genre_sep$Genre_1)
+data_genre_sep$Genre_2 <- str_trim(data_genre_sep$Genre_2)
+data_genre_sep$Genre_3 <- str_trim(data_genre_sep$Genre_3)
+data_genre_sep$Genre_4 <- str_trim(data_genre_sep$Genre_4)
+
+data_genre_sep
+
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Musicial"] <- "Musical"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Heist film"] <- "Heist"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Science Fiction"] <- "Science fiction"
+
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Musicial"] <- "Musical"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Heist film"] <- "Heist"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Science Fiction"] <- "Science fiction"
+
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Musicial"] <- "Musical"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Heist film"] <- "Heist"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Science Fiction"] <- "Science fiction"
+
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Musicial"] <- "Musical"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Action thriller"] <- "Action-thriller"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Heist film"] <- "Heist"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romance drama"] <- "Romantic drama"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romantic teen drama"] <- "Romantic teenage drama"
+data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Science Fiction"] <- "Science fiction"
+
+sredena_tablica <- data_genre_sep
+sredena_tablica
+nrow(sredena_tablica[((sredena_tablica$Genre_3=="Musicial")&(!is.na(sredena_tablica$Genre_3))),])
+
+```
+
