@@ -32,6 +32,7 @@ data_genre_sep
 
 
 **ODNOS ŽANRA I DULJINE**
+**DRUGO PITANJE**
 ```{r}
 data1 <- data_genre_sep
 
@@ -113,46 +114,79 @@ barplot(genre_runtime_mean$`mean(Runtime)`,xlab = "trajanje")
 ?barplot
 
 ```
-
+**CETVRTO PITANJE**
 ```{r}
-data_genre_sep$Genre_1 <- str_trim(data_genre_sep$Genre_1)
-data_genre_sep$Genre_2 <- str_trim(data_genre_sep$Genre_2)
-data_genre_sep$Genre_3 <- str_trim(data_genre_sep$Genre_3)
-data_genre_sep$Genre_4 <- str_trim(data_genre_sep$Genre_4)
+data4 <- data_genre_sep
 
-data_genre_sep
+score_runtime <-data4[,c("IMDB Score","Runtime")]
+score_runtime
 
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Musicial"] <- "Musical"
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Action thriller"] <- "Action-thriller"
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Heist film"] <- "Heist"
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romance drama"] <- "Romantic drama"
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Romantic teen drama"] <- "Romantic teenage drama"
-data_genre_sep$Genre_1[data_genre_sep$Genre_1=="Science Fiction"] <- "Science fiction"
+# da smanjimo broj ocjena da je analiza lakša
 
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Musicial"] <- "Musical"
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Action thriller"] <- "Action-thriller"
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Heist film"] <- "Heist"
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romance drama"] <- "Romantic drama"
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Romantic teen drama"] <- "Romantic teenage drama"
-data_genre_sep$Genre_2[data_genre_sep$Genre_2=="Science Fiction"] <- "Science fiction"
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 2.3 & score_runtime$`IMDB Score` <=2.7, 2.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 2.8 & score_runtime$`IMDB Score` <=3.2, 3)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 3.3 & score_runtime$`IMDB Score` <=3.7, 3.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 3.8 & score_runtime$`IMDB Score` <=4.2, 4)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 4.3 & score_runtime$`IMDB Score` <=4.7, 4.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 4.8 & score_runtime$`IMDB Score` <=5.2, 5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 5.3 & score_runtime$`IMDB Score` <=5.7, 5.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 5.8 & score_runtime$`IMDB Score` <=6.2, 6)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 6.3 & score_runtime$`IMDB Score` <=6.7, 6.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 6.8 & score_runtime$`IMDB Score` <=7.2, 7)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 7.3 & score_runtime$`IMDB Score` <=7.7, 7.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 7.8 & score_runtime$`IMDB Score` <=8.2, 8)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 8.3 & score_runtime$`IMDB Score` <=8.7, 8.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 8.8 & score_runtime$`IMDB Score` <=9.2, 9)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 9.3 & score_runtime$`IMDB Score` <=9.7, 9.5)
+score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$`IMDB Score` >= 9.8 & score_runtime$`IMDB Score` <=10, 10)
 
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Musicial"] <- "Musical"
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Action thriller"] <- "Action-thriller"
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Heist film"] <- "Heist"
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romance drama"] <- "Romantic drama"
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Romantic teen drama"] <- "Romantic teenage drama"
-data_genre_sep$Genre_3[data_genre_sep$Genre_3=="Science Fiction"] <- "Science fiction"
+runtime_score <- score_runtime[order(score_runtime$Runtime),]
+runtime_score
 
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Musicial"] <- "Musical"
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Action thriller"] <- "Action-thriller"
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Heist film"] <- "Heist"
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romance drama"] <- "Romantic drama"
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Romantic teen drama"] <- "Romantic teenage drama"
-data_genre_sep$Genre_4[data_genre_sep$Genre_4=="Science Fiction"] <- "Science fiction"
+?plot
+plot(runtime_score$Runtime,runtime_score$`IMDB Score`,type="p")
+plot(runtime_score$`IMDB Score`,runtime_score$Runtime)
 
-sredena_tablica <- data_genre_sep
-sredena_tablica
-nrow(sredena_tablica[((sredena_tablica$Genre_3=="Musicial")&(!is.na(sredena_tablica$Genre_3))),])
+
+
+
+```
+
+**TRECE PITANJE**
+```{r}
+data3 <- data_genre_sep
+premiere_score <- data3[,c("Premiere","IMDB Score")]
+str_replace(premiere_score$Premiere,"January","1, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"January","1, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"February","2, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"March","3, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"April","4, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"May","5, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"June","6, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"July","7, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"August","8, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"September","9, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"October","10, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"November","11, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"December","12, ")
+premiere_score
+premiere_score$Premiere <- mdy(premiere_score$Premiere)
+premiere_score
+
+
+plot(premiere_score$`IMDB Score`,month(premiere_score$Premiere),xlab = "ocjena",ylab = "mjesec premijere")
+
+premiereMonth_score <- premiere_score
+premiereMonth_score$Premiere <- month(premiereMonth_score$Premiere)
+premiereMonth_score
+
+plot(premiereMonth_score$Premiere,premiereMonth_score$`IMDB Score`,xlab = "mjesec premijere",ylab = "ocjena")
+
+premiereMonth_score %>% group_by(Premiere) %>% summarise(mean(`IMDB Score`))->premiereMonth_score
+premiereMonth_score
+
+plot(premiereMonth_score$Premiere,premiereMonth_score$`mean(\`IMDB Score\`)`,xlim = c(1,12),xlab = "mjesec premijere",ylab = "prosjek ocjena")
+
 
 ```
 
