@@ -1,0 +1,138 @@
+---
+title: "Redemption_statistika"
+output: html_document
+date: "2023-12-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(utils)
+library(stringr)
+library(forcats)
+library(lubridate)
+library(graphics)
+library(plotrix)
+library(ggplot2)
+library(ggpubr)
+library(broom)
+library(AICcmodavg)
+```
+
+
+
+**DRUGO PITANJE**
+```{r}
+data2 <- read_csv("NetflixOriginals.csv")
+
+
+qqnorm(data1$Runtime , pch = 1, frame = FALSE,main='Runtime'); qqline(data1$Runtime , col = "steelblue", lwd = 2)
+
+qqnorm(log(data1$Runtime) , pch = 1, frame = FALSE,main='Runtime'); qqline(log(data1$Runtime) , col = "steelblue", lwd = 2)
+
+
+```
+Graf ukazuje na to na Runtime varijabla ima donekle normalnu razdiobu, sa time da imamo vecu devijaciju on normalne razdiobe u lijevom repu u manju devjaciju u desom repu
+
+Kad primjenimo logaritam uočavamo da se situacija poboljšava u desnom repu tj da nestaje devijacija, no lijevi rep dobija vecu devijaciju
+
+
+
+
+```{r}
+#mozemo gledati više žanrova kao da je svaki svoj stupac ili budu svi u jednom stupcu pa da trazimo u tom stringu odredeni žanr
+data_genre_sep <- separate(data2,Genre,into = c("Genre_1","Genre_2","Genre_3","Genre_4"),sep = "/",remove = T)
+data_genre_sep
+
+
+data1 <- data_genre_sep
+
+genre_1_runtime <-data1[,c("Genre_1","Runtime")]
+genre_2_runtime <-data1[,c("Genre_2","Runtime")] 
+genre_3_runtime <-data1[,c("Genre_3","Runtime")] 
+genre_4_runtime <-data1[,c("Genre_4","Runtime")]
+
+colnames(genre_1_runtime)[1] <- "Genre"
+colnames(genre_2_runtime)[1] <- "Genre"
+colnames(genre_3_runtime)[1] <- "Genre"
+colnames(genre_4_runtime)[1] <- "Genre"
+
+genre_runtime <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
+genre_runtime
+genre_runtime$Genre <- str_trim(genre_runtime$Genre)
+
+genre_runtime$Genre[genre_runtime$Genre=="Musicial"] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre=="Action thriller"] <- "Action-thriller"
+genre_runtime$Genre[genre_runtime$Genre=="Heist film"] <- "Heist"
+genre_runtime$Genre[genre_runtime$Genre=="Romance drama"] <- "Romantic drama"
+genre_runtime$Genre[genre_runtime$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_runtime$Genre[genre_runtime$Genre=="Science Fiction"] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Action","Action comedy","Action-adventure","Action-thriller")] <- "Action"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Adventure","Adventure-romance")] <- "Adventure"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Animated musical comedy","Animation")] <- "Animation"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Black comedy","Comedy","Comedy horror","Comedy mystery","Comedy-drama","Coming-of-age comedy-drama","Dark comedy","Dance comedy")] <- "Comedy"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Christian musical","Christmas","Christmas comedy","Christmas musical")] <- "Christmas"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Crime drama","Crime thriller")] <- "Crime"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Drama","Drama-Comedy","Supernatural drama")] <- "Drama"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Family","Family film")] <- "Family"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Historical drama","Historical-epic")] <- "Historical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Horror-thriller","Horror thriller","Horror comedy","Horror anthology","Horror")] <- "Horror"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Musical","Musical comedy")] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Political thriller","Psychological thriller","Psychological thriller drama")] <- "Psychological"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Romantic comedy","Romantic comedy-drama","Romantic drama","Romance","Romantic teenage drama","Romantic thriller")] <- "Romance"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Science fiction adventure","Science fiction thriller")] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Sports film","Sports-drama")] <- "Sports"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Spy thriller","Thriller")] <- "Thriller"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Superhero","Superhero-Comedy")] <- "Superhero"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Teen comedy horror","Teen comedy-drama")] <- "Teen"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Variety Show","Variety show")] <- "Variety"
+genre_runtime$Genre[genre_runtime$Genre %in% c("War","War drama","War-Comedy")] <- "War"
+
+genre_runtime <- na.omit(genre_runtime)
+genre_runtime
+
+
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+```
+
+ANOVA test za testiranje odnosa Genre i Runtime
+H0: srednja vrijednost Runtime za sve Genre je jednaka
+H1: srednja vrijednost Runtime za sve Genre nije jednaka
+```{r}
+one.way <- aov(Runtime ~ Genre, data= genre_runtime)
+summary(one.way)
+
+```
+Mala vrijednost Pr(>F) (p-value) ukazuje na to da varijabla Genre ima stvaran utjecaj na RunTime varijablu, odnosno da žanr filma ima utjecaj na duljinu samog filma
+
+
+
+
+Deset žanrova sa najduljim trajanjem i deset žanrova sa najkraćim trajanjem
+```{r}
+
+genre_runtime %>% group_by(Genre) %>% summarise(mean(Runtime))->genre_runtime_mean
+slice_max(genre_runtime_mean,`mean(Runtime)`,n=10)
+slice_min(genre_runtime_mean,`mean(Runtime)`,n=10)
+
+
+```
+```{r}
+
+library(ggplot2)
+library(dplyr)
+
+# Assuming your data frame is named 'your_data_frame'
+genre_runtime_mean %>%
+  arrange(`mean(Runtime)`) %>%
+  mutate(Genre = factor(Genre, levels = unique(Genre))) %>%
+  ggplot(aes(x = Genre, y = `mean(Runtime)`)) +
+    geom_segment(aes(xend = Genre, yend = 0)) +
+    geom_point(size = 4, color = "orange") +
+    theme_bw() +
+    xlab("")+
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+```
+

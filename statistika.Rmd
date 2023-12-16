@@ -143,11 +143,13 @@ score_runtime$`IMDB Score` <- replace(score_runtime$`IMDB Score`, score_runtime$
 runtime_score <- score_runtime[order(score_runtime$Runtime),]
 runtime_score
 
-?plot
+
 plot(runtime_score$Runtime,runtime_score$`IMDB Score`,type="p")
 plot(runtime_score$`IMDB Score`,runtime_score$Runtime)
 
+runtime_score %>% group_by(`IMDB Score`) %>% summarise(mean(Runtime))->meanRuntime_score
 
+plot(meanRuntime_score$`IMDB Score`,meanRuntime_score$`mean(Runtime)`,xlab = "ocjena",ylab = "prosjek duljine",xlim = c(2,10),main = "Odnos ocjene i prosjeka duljine filma")
 
 
 ```
@@ -185,7 +187,8 @@ plot(premiereMonth_score$Premiere,premiereMonth_score$`IMDB Score`,xlab = "mjese
 premiereMonth_score %>% group_by(Premiere) %>% summarise(mean(`IMDB Score`))->premiereMonth_score
 premiereMonth_score
 
-plot(premiereMonth_score$Premiere,premiereMonth_score$`mean(\`IMDB Score\`)`,xlim = c(1,12),xlab = "mjesec premijere",ylab = "prosjek ocjena")
+plot(premiereMonth_score$Premiere,premiereMonth_score$`mean(\`IMDB Score\`)`,xlim = c(1,12),xlab = "mjesec premijere",ylab = "prosjek ocjena",main = "Odnos mjeseca premijere i prosječne ocjene")
+
 
 
 ```
