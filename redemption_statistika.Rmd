@@ -136,3 +136,42 @@ genre_runtime_mean %>%
 
 ```
 
+
+
+**TRECE PITANJE**
+```{r}
+
+
+data3 <- data_genre_sep
+premiere_score <- data3[,c("Premiere","IMDB Score")]
+str_replace(premiere_score$Premiere,"January","1, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"January","1, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"February","2, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"March","3, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"April","4, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"May","5, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"June","6, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"July","7, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"August","8, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"September","9, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"October","10, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"November","11, ")
+premiere_score$Premiere <- str_replace(premiere_score$Premiere,"December","12, ")
+premiere_score$Premiere <- mdy(premiere_score$Premiere)
+premiere_score
+
+
+premiereMonth_score <- premiere_score
+premiereMonth_score$Premiere <- month(premiereMonth_score$Premiere)
+names(premiereMonth_score) <- c("Premiere_Month","IMDB_Score")
+premiereMonth_score
+
+one.way <- aov(IMDB_Score~Premiere_Month,data=premiereMonth_score)
+summary(one.way)
+
+premiereMonth_score %>% group_by(Premiere_Month) %>% summarise(mean(IMDB_Score))-> premiereMonth_scoreMean
+premiereMonth_scoreMean
+
+
+```
+
