@@ -22,9 +22,179 @@ library(AICcmodavg)
 
 
 
+```{r}
+data2 <- read_csv("NetflixOriginals.csv")
+
+data_genre_sep <- separate(data2,Genre,into = c("Genre_1","Genre_2","Genre_3","Genre_4"),sep = "/",remove = T)
+data_genre_sep
+
+data1 <- data_genre_sep
+
+genre_1_runtime <-data1[,c("Genre_1","Language")]
+genre_2_runtime <-data1[,c("Genre_2","Language")] 
+genre_3_runtime <-data1[,c("Genre_3","Language")] 
+genre_4_runtime <-data1[,c("Genre_4","Language")]
+
+colnames(genre_1_runtime)[1] <- "Genre"
+colnames(genre_2_runtime)[1] <- "Genre"
+colnames(genre_3_runtime)[1] <- "Genre"
+colnames(genre_4_runtime)[1] <- "Genre"
+
+genre_language <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
+genre_language
+genre_language$Genre <- str_trim(genre_language$Genre)
+
+genre_language$Genre[genre_language$Genre=="Musicial"] <- "Musical"
+genre_language$Genre[genre_language$Genre=="Action thriller"] <- "Action-thriller"
+genre_language$Genre[genre_language$Genre=="Heist film"] <- "Heist"
+genre_language$Genre[genre_language$Genre=="Romance drama"] <- "Romantic drama"
+genre_language$Genre[genre_language$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_language$Genre[genre_language$Genre=="Science Fiction"] <- "Science fiction"
+genre_language$Genre[genre_language$Genre %in% c("Action","Action comedy","Action-adventure","Action-thriller")] <- "Action"
+genre_language$Genre[genre_language$Genre %in% c("Adventure","Adventure-romance")] <- "Adventure"
+genre_language$Genre[genre_language$Genre %in% c("Animated musical comedy","Animation")] <- "Animation"
+genre_language$Genre[genre_language$Genre %in% c("Black comedy","Comedy","Comedy horror","Comedy mystery","Comedy-drama","Coming-of-age comedy-drama","Dark comedy","Dance comedy")] <- "Comedy"
+genre_language$Genre[genre_language$Genre %in% c("Christian musical","Christmas","Christmas comedy","Christmas musical")] <- "Christmas"
+genre_language$Genre[genre_language$Genre %in% c("Crime drama","Crime thriller")] <- "Crime"
+genre_language$Genre[genre_language$Genre %in% c("Drama","Drama-Comedy","Supernatural drama")] <- "Drama"
+genre_language$Genre[genre_language$Genre %in% c("Family","Family film")] <- "Family"
+genre_language$Genre[genre_language$Genre %in% c("Historical drama","Historical-epic")] <- "Historical"
+genre_language$Genre[genre_language$Genre %in% c("Horror-thriller","Horror thriller","Horror comedy","Horror anthology","Horror")] <- "Horror"
+genre_language$Genre[genre_language$Genre %in% c("Musical","Musical comedy")] <- "Musical"
+genre_language$Genre[genre_language$Genre %in% c("Political thriller","Psychological thriller","Psychological thriller drama")] <- "Psychological"
+genre_language$Genre[genre_language$Genre %in% c("Romantic comedy","Romantic comedy-drama","Romantic drama","Romance","Romantic teenage drama","Romantic thriller")] <- "Romance"
+genre_language$Genre[genre_language$Genre %in% c("Science fiction adventure","Science fiction thriller")] <- "Science fiction"
+genre_language$Genre[genre_language$Genre %in% c("Sports film","Sports-drama")] <- "Sports"
+genre_language$Genre[genre_language$Genre %in% c("Spy thriller","Thriller")] <- "Thriller"
+genre_language$Genre[genre_language$Genre %in% c("Superhero","Superhero-Comedy")] <- "Superhero"
+genre_language$Genre[genre_language$Genre %in% c("Teen comedy horror","Teen comedy-drama")] <- "Teen"
+genre_language$Genre[genre_language$Genre %in% c("Variety Show","Variety show")] <- "Variety"
+genre_language$Genre[genre_language$Genre %in% c("War","War drama","War-Comedy")] <- "War"
+
+```
+
+
+**PRVO PITANJE**
+```{r}
+#rastavimo po jezicima
+genre_language$Language[genre_language$Language=="English/Japanese"] <- "Japanese"
+genre_language$Language[genre_language$Language=="English/Spanish"] <- "Spanish"
+genre_language$Language[genre_language$Language=="Spanish/Basque"] <- "Spanish"
+genre_language$Language[genre_language$Language=="Spanish/Catalan"] <- "Spanish"
+genre_language$Language[genre_language$Language=="English/Swedish"] <- "Swedish"
+genre_language$Language[genre_language$Language=="English/Taiwanese/Mandarin"] <- "English"
+genre_language$Language[genre_language$Language=="Thia/English"] <- "English"
+genre_language$Language[genre_language$Language=="English/Mandarin"] <- "Mandarin"
+genre_language$Language[genre_language$Language=="Khmer/English/French"] <- "French"
+genre_language$Language[genre_language$Language=="English/Hindi"] <- "Hindi"
+genre_language$Language[genre_language$Language=="Spanish/English"] <- "Spanish"
+genre_language$Language[genre_language$Language=="English/Korean"] <- "Korean"
+genre_language$Language[genre_language$Language=="English/Arabic"] <- "Arabic"
+genre_language$Language[genre_language$Language=="English/Russian"] <- "Russian"
+genre_language$Language[genre_language$Language=="English/Akan"] <- "English"
+genre_language$Language[genre_language$Language=="English/Ukranian/Russian"] <- "Russian"
+genre_language
+
+genre_language <- genre_language %>% filter_all(all_vars(. != "NA"))
+genre_language
+
+
+table(genre_language$Language) %>% sort()
+#razdvajamo po jezicima
+data_Portugese <- subset(genre_language,  Language== "Portuguese")
+data_Italian <- subset(genre_language,  Language== "Italian")
+data_French <- subset(genre_language,  Language== "French")
+data_Hindi <- subset(genre_language,  Language== "Hindi")
+data_Spanish <- subset(genre_language,  Language== "Spanish")
+data_English <- subset(genre_language,  Language== "English")
+data_Indonesian <- subset(genre_language,  Language== "Indonesian")
+data_Japanese <- subset(genre_language,  Language== "Japanese")
+data_Korean <- subset(genre_language,  Language== "Korean")
+data_Turkish <- subset(genre_language,  Language== "Turkish")
+
+data_Portugese$Genre <- factor(data_Portugese$Genre)
+data_Italian$Genre <- factor(data_Italian$Genre)
+data_French$Genre <- factor(data_French$Genre)
+data_Hindi$Genre <- factor(data_Hindi$Genre)
+data_Spanish$Genre <- factor(data_Spanish$Genre)
+data_English$Genre <- factor(data_English$Genre)
+data_Indonesian$Genre <- factor(data_Indonesian$Genre)
+data_Japanese$Genre <- factor(data_Japanese$Genre)
+data_Korean$Genre <- factor(data_Korean$Genre)
+data_Turkish$Genre <- factor(data_Turkish$Genre)
+
+
+ggplot(data_Portugese, aes(x = Genre)) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Broj filmova po žanru", x = "Žanr", y = "Broj filmova")
+
+
+table(data_English$Genre)
+
+# Brojanje pojavljivanja žanrova
+genre_counts <- data_English %>% count(Genre)
+
+# Filtriranje žanrova koji se pojavljuju 10 ili više puta
+data_English_filtered <- data_English %>% 
+  filter(Genre %in% genre_counts$Genre[genre_counts$n >= 8])
+
+
+ggplot(data_English_filtered, aes(x = Genre)) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Broj filmova po žanru", x = "Žanr", y = "Broj filmova")+
+  theme(axis.text.x = element_text(angle=45,hjust = 1))
+
+
+
+# Navedite žanrove koje želite ukloniti
+jezici_za_sadržavanje <- c("Portuguese", "Italian","French","Hindi","Spanish","English","Indonesian","Japanese","Korean","Turkish")
+
+# Filtrirajte podatke tako da uklonite retke s određenim žanrovima
+genre_language_filtered <- genre_language %>% filter(Language %in% jezici_za_sadržavanje)
+
+genre_language_filtered
+
+
+genre_language_filtered$Language <- factor(genre_language_filtered$Language)
+```
+
+Iz ove tablice možemo zaključiti da ne možemo koristiti Hi-kvadrat test jer preduvjet očekivane frekvencije nije bio zadovoljen (očekivana frekvencija mora biti veća od 5)
+```{r}
+# Kreiranje kontingencijske tablice
+contingency_table <- table(genre_language_filtered$Genre, genre_language_filtered$Language)
+
+
+barplot(contingency_table, col = c("red", "blue"), beside = TRUE, legend = TRUE)
+
+
+```
+
+Razlog korištenja Ficherovog testa je ne mogućnost korištenja Hi-kvadrat testa
+Postavljanje hipoteza:
+H0: ne postoji povezanost između Žanra i Područja
+H1: postoji povezanost između Žanra i Područja
+alpha=0.05
+```{r}
+
+fisher_test <- fisher.test(contingency_table, simulate.p.value = TRUE)
+print(fisher_test)
+
+ggplot(as.data.frame.table(contingency_table), aes(x = Var1, y = Var2, fill = log(Freq + 1))) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(title = "Heatmap - Fisherov test" ,x = "Genre", y = "Language",fill="Frekvencija") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da postoji povezanost između Zanra i Područja, što je mudro
+
+
 **DRUGO PITANJE**
 ```{r}
 data2 <- read_csv("NetflixOriginals.csv")
+
 
 
 qqnorm(data1$Runtime , pch = 1, frame = FALSE,main='Runtime'); qqline(data1$Runtime , col = "steelblue", lwd = 2)
@@ -33,7 +203,7 @@ qqnorm(log(data1$Runtime) , pch = 1, frame = FALSE,main='Runtime'); qqline(log(d
 
 
 ```
-Graf ukazuje na to na Runtime varijabla ima donekle normalnu razdiobu, sa time da imamo vecu devijaciju on normalne razdiobe u lijevom repu u manju devjaciju u desom repu
+Graf ukazuje na to na Runtime varijabla ima donekle normalnu razdiobu, sa time da imamo vecu devijaciju od normalne razdiobe u lijevom repu a manju devjaciju u desom repu
 
 Kad primjenimo logaritam uočavamo da se situacija poboljšava u desnom repu tj da nestaje devijacija, no lijevi rep dobija vecu devijaciju
 
@@ -92,8 +262,24 @@ genre_runtime$Genre[genre_runtime$Genre %in% c("War","War drama","War-Comedy")] 
 genre_runtime <- na.omit(genre_runtime)
 genre_runtime
 
+table(genre_runtime$Genre) %>% sort()
+
 
 qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+
+boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Action",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Action", ylab = "Trajanje (min)")
+
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Comedy"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+
+boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Comedy",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Comedy", ylab = "Trajanje (min)")
+
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Documentary"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+
+boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Documentary",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Documentary", ylab = "Trajanje (min)")
+
+hist(genre_runtime$Runtime[genre_runtime$Genre=="Documentary"], col = "skyblue", main = "Histogram - Trajanje filmova žanra Action", xlab = "Trajanje (min)", ylab = "Broj filmova")
+
+
 ```
 
 ANOVA test za testiranje odnosa Genre i Runtime
@@ -113,8 +299,8 @@ Deset žanrova sa najduljim trajanjem i deset žanrova sa najkraćim trajanjem
 ```{r}
 
 genre_runtime %>% group_by(Genre) %>% summarise(mean(Runtime))->genre_runtime_mean
-slice_max(genre_runtime_mean,`mean(Runtime)`,n=10)
-slice_min(genre_runtime_mean,`mean(Runtime)`,n=10)
+rbind(slice_max(genre_runtime_mean,`mean(Runtime)`,n=5),slice_min(genre_runtime_mean,`mean(Runtime)`,n=5))
+
 
 
 ```
@@ -140,38 +326,283 @@ genre_runtime_mean %>%
 
 **TRECE PITANJE**
 ```{r}
+data3 <- data2
+data3
+
+data3$Year <- sub(".*?(\\d{4}).*", "\\1", data3$Premiere)
+data3
+score_year <- data3[, c("IMDB Score", "Year")]
+score_year
+score_year$Year <- as.numeric(score_year$Year)
+score_year
+summary(score_year)
 
 
-data3 <- data_genre_sep
-premiere_score <- data3[,c("Premiere","IMDB Score")]
-str_replace(premiere_score$Premiere,"January","1, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"January","1, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"February","2, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"March","3, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"April","4, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"May","5, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"June","6, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"July","7, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"August","8, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"September","9, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"October","10, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"November","11, ")
-premiere_score$Premiere <- str_replace(premiere_score$Premiere,"December","12, ")
-premiere_score$Premiere <- mdy(premiere_score$Premiere)
-premiere_score
+
+score_year <- mutate(score_year, Year = ifelse(Year %in% c(2014,2015,2016,2017), "stari", as.character(Year)))
+score_year <- mutate(score_year, Year = ifelse(Year %in% c(2018, 2019), "srednji", as.character(Year)))
+score_year <- mutate(score_year, Year = ifelse(Year %in% c(2020, 2021), "novi", as.character(Year)))
+
+score_year$Year <- as.factor(score_year$Year)
+score_year
 
 
-premiereMonth_score <- premiere_score
-premiereMonth_score$Premiere <- month(premiereMonth_score$Premiere)
-names(premiereMonth_score) <- c("Premiere_Month","IMDB_Score")
-premiereMonth_score
+ggplot(score_year, aes(x = Year, y = `IMDB Score`, fill = Year)) +
+  geom_boxplot() +
+  labs(title = "Boxplot - IMDB Score po Godini", y = "IMDB Score") +
+  scale_fill_manual(values = c("srednji" = "lightblue", "novi" = "lightgreen")) +
+  theme_minimal()
+```
 
-one.way <- aov(IMDB_Score~Premiere_Month,data=premiereMonth_score)
-summary(one.way)
+ANOVA test za testiranje odnosa Razdoblja i IMDB Scorea
+H0: srednja vrijednost IMDB Scorea za sva Razdoblja je jednaka
+H1: srednja vrijednost IMDB Scorea za sva Razdoblja nije jednaka
+```{r}
+# Izvršavanje ANOVA analize
+anova_result <- aov(`IMDB Score` ~ Year, data = score_year)
 
-premiereMonth_score %>% group_by(Premiere_Month) %>% summarise(mean(IMDB_Score))-> premiereMonth_scoreMean
-premiereMonth_scoreMean
+# Ispisivanje rezultata
+summary(anova_result)
+
+```
+ P-vrijednost manja od 0.05 sugerira da postoji statistički značajna razlika između godina u odnosu na IMDB Score. Ova razlika nije nužno velika, ali je statistički značajna. Možemo odbaciti H0 u korist H1
+
+
+
+```{r}
+score_year %>% group_by(Year) %>% summarise(avgOcjena=mean(`IMDB Score`))->score_year_mean
+score_year_mean
+```
+**CETVRTO PITANJE**
+```{r}
+data4 <- data2
+data4 <- data4[,c("Runtime","IMDB Score")]
+
+
+boxplot(data4$Runtime)
+summary(data4$Runtime)
+
+
+lmOcjene = lm(`IMDB Score`~Runtime, data = data4) #Create the linear regression
+summary(lmOcjene) #Review the results
+
+ggplot(data4, aes(x = Runtime, y = `IMDB Score`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Regresijski grafikon - IMDB Score vs. Runtime", 
+       x = "Trajanje filma", y = "IMDB Score")
+
+```
+
+
+Ako uzmemo u obzir sve filmove, vidimo blagi negativni trend u odnosu Ocjene i Duljine
+```{r}
+# Izračunajte kvantil
+quantile_threshold <- quantile(data4$Runtime, probs = 0.67)  # Top 33%
+
+# Izdvojite retke s 'Runtime' u top 33%
+selected_rows <- data4 %>%
+  filter(Runtime >= quantile_threshold)
+
+# Ispis odabranih redaka
+print(selected_rows)
+
+lmOcjene = lm(`IMDB Score`~Runtime , data = selected_rows) #Create the linear regression
+summary(lmOcjene) #Review the results
+
+ggplot(selected_rows, aes(x = Runtime, y = `IMDB Score`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Regresijski grafikon - IMDB Score vs. Runtime", 
+       x = "Trajanje filma", y = "IMDB Score")
+
+
+reziduali <- residuals(lmOcjene)
+reziduali
+
+plot(reziduali)
+
+```
+
+
+A ako uzmemo u obzir samo filmove koji pripadaju u gornjih 33% po Runtimeu, možemo primjetiti blagi pozitivni trend.
+
+Reziduali također imaju srednju vrijednost blizu nule, što je dobro. Srednja vrijednost reziduala blizu nule ukazuje na to da model nije sustavno precijenio ili podcijenio stvarne vrijednosti.
+
+**PETI ZADATAK**
+```{r}
+data5 <- data2
+score_runtime_language <-data5[,c("IMDB Score","Runtime","Language")] 
+score_runtime_language
+
+score_runtime_language$Language[score_runtime_language$Language=="English/Japanese"] <- "Japanese"
+score_runtime_language$Language[score_runtime_language$Language=="English/Spanish"] <- "Spanish"
+score_runtime_language$Language[score_runtime_language$Language=="Spanish/Basque"] <- "Spanish"
+score_runtime_language$Language[score_runtime_language$Language=="Spanish/Catalan"] <- "Spanish"
+score_runtime_language$Language[score_runtime_language$Language=="English/Swedish"] <- "Swedish"
+score_runtime_language$Language[score_runtime_language$Language=="English/Taiwanese/Mandarin"] <- "English"
+score_runtime_language$Language[score_runtime_language$Language=="Thia/English"] <- "English"
+score_runtime_language$Language[score_runtime_language$Language=="English/Mandarin"] <- "Mandarin"
+score_runtime_language$Language[score_runtime_language$Language=="Khmer/English/French"] <- "French"
+score_runtime_language$Language[score_runtime_language$Language=="English/Hindi"] <- "Hindi"
+score_runtime_language$Language[score_runtime_language$Language=="Spanish/English"] <- "Spanish"
+score_runtime_language$Language[score_runtime_language$Language=="English/Korean"] <- "Korean"
+score_runtime_language$Language[score_runtime_language$Language=="English/Arabic"] <- "Arabic"
+score_runtime_language$Language[score_runtime_language$Language=="English/Russian"] <- "Russian"
+score_runtime_language$Language[score_runtime_language$Language=="English/Akan"] <- "English"
+score_runtime_language$Language[score_runtime_language$Language=="English/Ukranian/Russian"] <- "Russian"
+
+score_runtime_language
+
+jezici_za_sadržavanje <- c("Portuguese", "Italian","French","Hindi","Spanish","English","Indonesian","Japanese","Korean","Turkish")
+
+# Filtrirajte podatke tako da uklonite retke s određenim žanrovima
+score_runtime_language_filtered <- score_runtime_language %>% filter(Language %in% jezici_za_sadržavanje)
+
+score_runtime_language_filtered
+
+require(fastDummies)
+score_runtime_language_filtered.d <- dummy_cols(score_runtime_language_filtered, select_columns='Language')
+
+
+lm_score_runtime_lang <- lm(`IMDB Score`~Runtime + Language_English+Language_French+Language_Hindi+Language_Indonesian+Language_Italian+Language_Japanese+Language_Korean+Language_Portuguese+Language_Spanish+Language_Turkish, data=score_runtime_language_filtered.d)
+summary(lm_score_runtime_lang)
+```
+Iz priloženog vidimo da nema korelacije između Ocjene filma te kombinacije Duljine trajanje i Jezika jer model objašnjava samo 4.4% varijance u izlaznim podacima, a sudeći po F-testu kombinacija Duljine filma te Jezika nema značajnog utjecaja na ishod ocjene 
+
+```{r}
+data5_plusGenre <- data_genre_sep
+
+genre_1_runtime <-data5_plusGenre[,c("Genre_1","Runtime","IMDB Score")]
+genre_2_runtime <-data5_plusGenre[,c("Genre_2","Runtime","IMDB Score")] 
+genre_3_runtime <-data5_plusGenre[,c("Genre_3","Runtime","IMDB Score")] 
+genre_4_runtime <-data5_plusGenre[,c("Genre_4","Runtime","IMDB Score")]
+
+colnames(genre_1_runtime)[1] <- "Genre"
+colnames(genre_2_runtime)[1] <- "Genre"
+colnames(genre_3_runtime)[1] <- "Genre"
+colnames(genre_4_runtime)[1] <- "Genre"
+
+genre_runtime <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
+genre_runtime
+genre_runtime$Genre <- str_trim(genre_runtime$Genre)
+
+genre_runtime$Genre[genre_runtime$Genre=="Musicial"] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre=="Action thriller"] <- "Action-thriller"
+genre_runtime$Genre[genre_runtime$Genre=="Heist film"] <- "Heist"
+genre_runtime$Genre[genre_runtime$Genre=="Romance drama"] <- "Romantic drama"
+genre_runtime$Genre[genre_runtime$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_runtime$Genre[genre_runtime$Genre=="Science Fiction"] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Action","Action comedy","Action-adventure","Action-thriller")] <- "Action"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Adventure","Adventure-romance")] <- "Adventure"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Animated musical comedy","Animation")] <- "Animation"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Black comedy","Comedy","Comedy horror","Comedy mystery","Comedy-drama","Coming-of-age comedy-drama","Dark comedy","Dance comedy")] <- "Comedy"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Christian musical","Christmas","Christmas comedy","Christmas musical")] <- "Christmas"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Crime drama","Crime thriller")] <- "Crime"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Drama","Drama-Comedy","Supernatural drama")] <- "Drama"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Family","Family film")] <- "Family"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Historical drama","Historical-epic")] <- "Historical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Horror-thriller","Horror thriller","Horror comedy","Horror anthology","Horror")] <- "Horror"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Musical","Musical comedy")] <- "Musical"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Political thriller","Psychological thriller","Psychological thriller drama")] <- "Psychological"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Romantic comedy","Romantic comedy-drama","Romantic drama","Romance","Romantic teenage drama","Romantic thriller")] <- "Romance"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Science fiction adventure","Science fiction thriller")] <- "Science fiction"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Sports film","Sports-drama")] <- "Sports"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Spy thriller","Thriller")] <- "Thriller"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Superhero","Superhero-Comedy")] <- "Superhero"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Teen comedy horror","Teen comedy-drama")] <- "Teen"
+genre_runtime$Genre[genre_runtime$Genre %in% c("Variety Show","Variety show")] <- "Variety"
+genre_runtime$Genre[genre_runtime$Genre %in% c("War","War drama","War-Comedy")] <- "War"
+
+genre_runtime <- na.omit(genre_runtime)
+
+
+
+
+# Primjena "one-hot encoding" na varijablu 'Genre'
+score_runtime_genre_d <- dummy_cols(genre_runtime, select_columns='Genre', remove_first_dummy = TRUE)
+score_runtime_genre_d_dobar <- score_runtime_genre_d[-1]
+
+# Stvaranje linearnog modela
+lm_score_runtime_genre <- lm(`IMDB Score` ~ Runtime + ., data=score_runtime_genre_d_dobar)
+
+# Prikazivanje rezultata modela
+summary(lm_score_runtime_genre)
+
+score_runtime_genre_d_no_runtime <- score_runtime_genre_d[-1]
+score_runtime_genre_d_no_runtime <- score_runtime_genre_d_no_runtime[-1]
+lm_score_genre <- lm(`IMDB Score` ~ . , data=score_runtime_genre_d_no_runtime)
+
+# Prikazivanje rezultata modela
+summary(lm_score_genre)
 
 
 ```
+R² ovdje objašnjava čak 30% varijance i to potvrđuje jako mala p-vrijednost u upućuje nas na to da kombinacija Duljine i Žanra filma i značajan utjecaj na ocjenu
+
+
+```{r}
+data5_plusGenre_plusPremiere <- data_genre_sep
+
+genre_1_runtime <-data5_plusGenre_plusPremiere[,c("Genre_1","Premiere","IMDB Score")]
+genre_2_runtime <-data5_plusGenre_plusPremiere[,c("Genre_2","Premiere","IMDB Score")] 
+genre_3_runtime <-data5_plusGenre_plusPremiere[,c("Genre_3","Premiere","IMDB Score")] 
+genre_4_runtime <-data5_plusGenre_plusPremiere[,c("Genre_4","Premiere","IMDB Score")]
+
+colnames(genre_1_runtime)[1] <- "Genre"
+colnames(genre_2_runtime)[1] <- "Genre"
+colnames(genre_3_runtime)[1] <- "Genre"
+colnames(genre_4_runtime)[1] <- "Genre"
+
+genre_score_premiere <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
+genre_score_premiere
+genre_score_premiere$Genre <- str_trim(genre_score_premiere$Genre)
+
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Musicial"] <- "Musical"
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Action thriller"] <- "Action-thriller"
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Heist film"] <- "Heist"
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Romance drama"] <- "Romantic drama"
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Romantic teen drama"] <- "Romantic teenage drama"
+genre_score_premiere$Genre[genre_score_premiere$Genre=="Science Fiction"] <- "Science fiction"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Action","Action comedy","Action-adventure","Action-thriller")] <- "Action"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Adventure","Adventure-romance")] <- "Adventure"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Animated musical comedy","Animation")] <- "Animation"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Black comedy","Comedy","Comedy horror","Comedy mystery","Comedy-drama","Coming-of-age comedy-drama","Dark comedy","Dance comedy")] <- "Comedy"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Christian musical","Christmas","Christmas comedy","Christmas musical")] <- "Christmas"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Crime drama","Crime thriller")] <- "Crime"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Drama","Drama-Comedy","Supernatural drama")] <- "Drama"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Family","Family film")] <- "Family"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Historical drama","Historical-epic")] <- "Historical"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Horror-thriller","Horror thriller","Horror comedy","Horror anthology","Horror")] <- "Horror"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Musical","Musical comedy")] <- "Musical"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Political thriller","Psychological thriller","Psychological thriller drama")] <- "Psychological"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Romantic comedy","Romantic comedy-drama","Romantic drama","Romance","Romantic teenage drama","Romantic thriller")] <- "Romance"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Science fiction adventure","Science fiction thriller")] <- "Science fiction"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Sports film","Sports-drama")] <- "Sports"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Spy thriller","Thriller")] <- "Thriller"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Superhero","Superhero-Comedy")] <- "Superhero"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Teen comedy horror","Teen comedy-drama")] <- "Teen"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("Variety Show","Variety show")] <- "Variety"
+genre_score_premiere$Genre[genre_score_premiere$Genre %in% c("War","War drama","War-Comedy")] <- "War"
+
+genre_score_premiere <- na.omit(genre_score_premiere)
+
+genre_score_premiere$Year <- sub(".*?(\\d{4}).*", "\\1", genre_score_premiere$Premiere)
+genre_score_premiere$Year <- as.numeric(genre_score_premiere$Year)
+genre_score_premiere <- genre_score_premiere[-2]
+genre_score_premiere
+
+
+
+# Primjena "one-hot encoding" na varijablu 'Genre'
+score_year_genre_d <- dummy_cols(genre_score_premiere, select_columns='Genre', remove_first_dummy = TRUE)
+
+# Stvaranje linearnog modela
+lm_score_year_genre <- lm(`IMDB Score` ~ Year + ., data=score_year_genre_d)
+
+# Prikazivanje rezultata modela
+summary(lm_score_year_genre)
+
+```
+
 
