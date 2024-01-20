@@ -169,7 +169,7 @@ barplot(contingency_table, col = c("red", "blue"), beside = TRUE, legend = TRUE)
 
 ```
 
-Razlog korištenja Ficherovog testa je ne mogućnost korištenja Hi-kvadrat testa
+Razlog korištenja Fisherovog testa je ne mogućnost korištenja Hi-kvadrat testa
 Postavljanje hipoteza:
 H0: ne postoji povezanost između Žanra i Područja
 H1: postoji povezanost između Žanra i Područja
@@ -188,7 +188,7 @@ ggplot(as.data.frame.table(contingency_table), aes(x = Var1, y = Var2, fill = lo
 
 
 ```
-Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da postoji povezanost između Zanra i Područja, što je mudro
+Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da postoji povezanost između Zanra i Područja, što se također može zaključiti i it heatmap-a kod kojeg uočavamo samo par odstupanja (npr. za engleski vidimo veću zastupljenost Christmas i Crime žanrova).
 
 
 **DRUGO PITANJE**
@@ -281,6 +281,8 @@ hist(genre_runtime$Runtime[genre_runtime$Genre=="Documentary"], col = "skyblue",
 
 
 ```
+Iz priloženih grafova, osobito box-plotova se uočava da Runtime za žanrove Comedy i Action prati noramlnu razdiobu, dok smo s druge strane izdvojili žanr Documentary koji u lijevom repu pokazuje veće devijacije u odnosu na Comedy i Action.
+
 
 ANOVA test za testiranje odnosa Genre i Runtime
 H0: srednja vrijednost Runtime za sve Genre je jednaka
@@ -290,12 +292,12 @@ one.way <- aov(Runtime ~ Genre, data= genre_runtime)
 summary(one.way)
 
 ```
-Mala vrijednost Pr(>F) (p-value) ukazuje na to da varijabla Genre ima stvaran utjecaj na RunTime varijablu, odnosno da žanr filma ima utjecaj na duljinu samog filma
+Mala vrijednost Pr(>F) (p-value) ukazuje na to da varijabla Genre ima stvaran utjecaj na RunTime varijablu, odnosno da žanr filma ima utjecaj na duljinu samog filma pa se time H0 pretpostavka odbacuje u korist H1.
 
 
 
 
-Deset žanrova sa najduljim trajanjem i deset žanrova sa najkraćim trajanjem
+Pet žanrova sa najduljom sredinom trajanja i pet žanrova sa najkraćom sredinom trajanja.
 ```{r}
 
 genre_runtime %>% group_by(Genre) %>% summarise(mean(Runtime))->genre_runtime_mean
@@ -538,7 +540,7 @@ summary(lm_score_genre)
 
 
 ```
-R² ovdje objašnjava čak 30% varijance i to potvrđuje jako mala p-vrijednost u upućuje nas na to da kombinacija Duljine i Žanra filma i značajan utjecaj na ocjenu
+R² ovdje objašnjava čak 30% varijance i to potvrđuje jako mala p-vrijednost te nas upućuje na to da kombinacija Duljine i Žanra filma i značajan utjecaj na ocjenu
 
 
 ```{r}
@@ -604,5 +606,5 @@ lm_score_year_genre <- lm(`IMDB Score` ~ Year + ., data=score_year_genre_d)
 summary(lm_score_year_genre)
 
 ```
-
+Iz gornje priloženog testa zaključujemo da godina premijere u kombinaciji sa žanrom objašnjava čak 31.5% varijance izlaznih vrijednosti u ovisnosti o ulaznim varijablama. To je također najveći R2 koji smo dobili.
 
