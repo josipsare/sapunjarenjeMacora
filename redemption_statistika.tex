@@ -1,0 +1,1579 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Netflix filmovi},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Netflix filmovi}
+\author{}
+\date{\vspace{-2.5em}2023-12-16}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"NetflixOriginals.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 584 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (4): Title, Genre, Premiere, Language
+## dbl (2): Runtime, IMDB Score
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_genre\_sep }\OtherTok{\textless{}{-}} \FunctionTok{separate}\NormalTok{(data2,Genre,}\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Genre\_4"}\NormalTok{),}\AttributeTok{sep =} \StringTok{"/"}\NormalTok{,}\AttributeTok{remove =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Expected 4 pieces. Missing pieces filled with `NA` in 582 rows [1, 2, 3, 4, 5,
+## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_genre\_sep}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 584 x 9
+##    Title  Genre_1 Genre_2 Genre_3 Genre_4 Premiere Runtime `IMDB Score` Language
+##    <chr>  <chr>   <chr>   <chr>   <chr>   <chr>      <dbl>        <dbl> <chr>   
+##  1 Enter~ Docume~ <NA>    <NA>    <NA>    August ~      58          2.5 English~
+##  2 Dark ~ Thrill~ <NA>    <NA>    <NA>    August ~      81          2.6 Spanish 
+##  3 The A~ Scienc~ Drama   <NA>    <NA>    Decembe~      79          2.6 Italian 
+##  4 The O~ Horror~ <NA>    <NA>    <NA>    January~      94          3.2 English 
+##  5 Kaali~ Mystery <NA>    <NA>    <NA>    October~      90          3.4 Hindi   
+##  6 Drive  Action  <NA>    <NA>    <NA>    Novembe~     147          3.5 Hindi   
+##  7 Leyla~ Comedy  <NA>    <NA>    <NA>    Decembe~     112          3.7 Turkish 
+##  8 The L~ Heist ~ Thrill~ <NA>    <NA>    June 5,~     149          3.7 English 
+##  9 Parad~ Musical Western Fantasy <NA>    March 2~      73          3.9 English 
+## 10 Sarda~ Comedy  <NA>    <NA>    <NA>    May 18,~     139          4.1 Hindi   
+## # i 574 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ data\_genre\_sep}
+
+\NormalTok{genre\_1\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Language"}\NormalTok{)]}
+\NormalTok{genre\_2\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Language"}\NormalTok{)] }
+\NormalTok{genre\_3\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Language"}\NormalTok{)] }
+\NormalTok{genre\_4\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_4"}\NormalTok{,}\StringTok{"Language"}\NormalTok{)]}
+
+\FunctionTok{colnames}\NormalTok{(genre\_1\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_2\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_3\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_4\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+
+\NormalTok{genre\_language }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(genre\_1\_runtime,genre\_2\_runtime,genre\_3\_runtime,genre\_4\_runtime)}
+\NormalTok{genre\_language}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,336 x 2
+##    Genre           Language        
+##    <chr>           <chr>           
+##  1 Documentary     English/Japanese
+##  2 Thriller        Spanish         
+##  3 Science fiction Italian         
+##  4 Horror thriller English         
+##  5 Mystery         Hindi           
+##  6 Action          Hindi           
+##  7 Comedy          Turkish         
+##  8 Heist film      English         
+##  9 Musical         English         
+## 10 Comedy          Hindi           
+## # i 2,326 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{str\_trim}\NormalTok{(genre\_language}\SpecialCharTok{$}\NormalTok{Genre)}
+
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Musicial"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action thriller"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Action{-}thriller"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Heist film"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Heist"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romance drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic drama"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romantic teen drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic teenage drama"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Science Fiction"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Action"}\NormalTok{,}\StringTok{"Action comedy"}\NormalTok{,}\StringTok{"Action{-}adventure"}\NormalTok{,}\StringTok{"Action{-}thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Action"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Adventure"}\NormalTok{,}\StringTok{"Adventure{-}romance"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Adventure"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Animated musical comedy"}\NormalTok{,}\StringTok{"Animation"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Animation"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Black comedy"}\NormalTok{,}\StringTok{"Comedy"}\NormalTok{,}\StringTok{"Comedy horror"}\NormalTok{,}\StringTok{"Comedy mystery"}\NormalTok{,}\StringTok{"Comedy{-}drama"}\NormalTok{,}\StringTok{"Coming{-}of{-}age comedy{-}drama"}\NormalTok{,}\StringTok{"Dark comedy"}\NormalTok{,}\StringTok{"Dance comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Comedy"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Christian musical"}\NormalTok{,}\StringTok{"Christmas"}\NormalTok{,}\StringTok{"Christmas comedy"}\NormalTok{,}\StringTok{"Christmas musical"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Christmas"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Crime drama"}\NormalTok{,}\StringTok{"Crime thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Crime"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Drama"}\NormalTok{,}\StringTok{"Drama{-}Comedy"}\NormalTok{,}\StringTok{"Supernatural drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Drama"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Family"}\NormalTok{,}\StringTok{"Family film"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Family"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Historical drama"}\NormalTok{,}\StringTok{"Historical{-}epic"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Historical"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Horror{-}thriller"}\NormalTok{,}\StringTok{"Horror thriller"}\NormalTok{,}\StringTok{"Horror comedy"}\NormalTok{,}\StringTok{"Horror anthology"}\NormalTok{,}\StringTok{"Horror"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Horror"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Musical"}\NormalTok{,}\StringTok{"Musical comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Political thriller"}\NormalTok{,}\StringTok{"Psychological thriller"}\NormalTok{,}\StringTok{"Psychological thriller drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Psychological"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Romantic comedy"}\NormalTok{,}\StringTok{"Romantic comedy{-}drama"}\NormalTok{,}\StringTok{"Romantic drama"}\NormalTok{,}\StringTok{"Romance"}\NormalTok{,}\StringTok{"Romantic teenage drama"}\NormalTok{,}\StringTok{"Romantic thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Romance"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Science fiction adventure"}\NormalTok{,}\StringTok{"Science fiction thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Sports film"}\NormalTok{,}\StringTok{"Sports{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Sports"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Spy thriller"}\NormalTok{,}\StringTok{"Thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Thriller"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Superhero"}\NormalTok{,}\StringTok{"Superhero{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Superhero"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Teen comedy horror"}\NormalTok{,}\StringTok{"Teen comedy{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Teen"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Variety Show"}\NormalTok{,}\StringTok{"Variety show"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Variety"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Genre[genre\_language}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"War"}\NormalTok{,}\StringTok{"War drama"}\NormalTok{,}\StringTok{"War{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"War"}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PRVO PITANJE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#pojednostavljamo jezike}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Japanese"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Japanese"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Spanish"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/Basque"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/Catalan"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Swedish"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Swedish"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Taiwanese/Mandarin"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Thia/English"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Mandarin"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Mandarin"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Khmer/English/French"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"French"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Hindi"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Hindi"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/English"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Korean"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Korean"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Arabic"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Arabic"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Russian"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Russian"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Akan"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{genre\_language}\SpecialCharTok{$}\NormalTok{Language[genre\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Ukranian/Russian"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Russian"}
+\NormalTok{genre\_language}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,336 x 2
+##    Genre           Language
+##    <chr>           <chr>   
+##  1 Documentary     Japanese
+##  2 Thriller        Spanish 
+##  3 Science fiction Italian 
+##  4 Horror          English 
+##  5 Mystery         Hindi   
+##  6 Action          Hindi   
+##  7 Comedy          Turkish 
+##  8 Heist           English 
+##  9 Musical         English 
+## 10 Comedy          Hindi   
+## # i 2,326 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genre\_language }\OtherTok{\textless{}{-}}\NormalTok{ genre\_language }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter\_all}\NormalTok{(}\FunctionTok{all\_vars}\NormalTok{(. }\SpecialCharTok{!=} \StringTok{"NA"}\NormalTok{))}
+\NormalTok{genre\_language}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 643 x 2
+##    Genre           Language
+##    <chr>           <chr>   
+##  1 Documentary     Japanese
+##  2 Thriller        Spanish 
+##  3 Science fiction Italian 
+##  4 Horror          English 
+##  5 Mystery         Hindi   
+##  6 Action          Hindi   
+##  7 Comedy          Turkish 
+##  8 Heist           English 
+##  9 Musical         English 
+## 10 Comedy          Hindi   
+## # i 633 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(genre\_language}\SpecialCharTok{$}\NormalTok{Language) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sort}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##     Arabic    Bengali   Georgian      Malay  Norwegian      Tamil   Filipino 
+##          1          1          1          1          1          1          2 
+##   Mandarin    Russian    Swedish       Thai      Dutch    Marathi     Polish 
+##          2          2          2          2          3          3          3 
+##     German    Turkish     Korean Indonesian   Japanese Portuguese    Italian 
+##          5          5          7          9         11         12         15 
+##     French      Hindi    Spanish    English 
+##         21         36         39        458
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#uzimamo u obzir top 10 zastupljenih jezika}
+\NormalTok{data\_Portugese }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Portuguese"}\NormalTok{)}
+\NormalTok{data\_Italian }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Italian"}\NormalTok{)}
+\NormalTok{data\_French }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"French"}\NormalTok{)}
+\NormalTok{data\_Hindi }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Hindi"}\NormalTok{)}
+\NormalTok{data\_Spanish }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Spanish"}\NormalTok{)}
+\NormalTok{data\_English }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"English"}\NormalTok{)}
+\NormalTok{data\_Indonesian }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Indonesian"}\NormalTok{)}
+\NormalTok{data\_Japanese }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Japanese"}\NormalTok{)}
+\NormalTok{data\_Korean }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Korean"}\NormalTok{)}
+\NormalTok{data\_Turkish }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(genre\_language,  Language}\SpecialCharTok{==} \StringTok{"Turkish"}\NormalTok{)}
+
+\NormalTok{data\_Portugese}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Portugese}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Italian}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Italian}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_French}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_French}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Hindi}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Hindi}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Spanish}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Spanish}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_English}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_English}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Indonesian}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Indonesian}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Japanese}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Japanese}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Korean}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Korean}\SpecialCharTok{$}\NormalTok{Genre)}
+\NormalTok{data\_Turkish}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data\_Turkish}\SpecialCharTok{$}\NormalTok{Genre)}
+
+
+\FunctionTok{ggplot}\NormalTok{(data\_Spanish, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Genre)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"skyblue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Broj filmova po žanru {-} španjolski jezik"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Žanr"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Broj filmova"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(data\_English}\SpecialCharTok{$}\NormalTok{Genre)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##                     Action                  Adventure 
+##                         15                          8 
+##                  Aftershow                  Animation 
+##                          6                         17 
+##                      Anime               Biographical 
+##                          1                          1 
+##                     Biopic                  Christmas 
+##                          8                          6 
+##                     Comedy               Concert Film 
+##                         56                          6 
+##                      Crime                Documentary 
+##                          7                        121 
+##                      Drama                     Family 
+##                         41                          6 
+##                    Fantasy                      Heist 
+##                          3                          3 
+## Hidden-camera prank comedy                 Historical 
+##                          1                          2 
+##                    Holiday                     Horror 
+##                          1                         14 
+##                  Interview                  Making-of 
+##                          6                          1 
+##          Mentalism special               Mockumentary 
+##                          1                          2 
+##                    Musical                    Mystery 
+##                          9                          2 
+##               One-man show              Psychological 
+##                          3                          5 
+##       Psychological horror                    Romance 
+##                          1                         36 
+##                     Satire            Science fiction 
+##                          1                         14 
+##                      Short                     Sports 
+##                          7                          3 
+##                Stop Motion                  Superhero 
+##                          1                          5 
+##                       Teen                   Thriller 
+##                          2                         21 
+##              Urban fantasy                    Variety 
+##                          1                          5 
+##                        War                    Western 
+##                          5                          3 
+##                     Zombie 
+##                          1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Brojanje pojavljivanja žanrova}
+\NormalTok{genre\_counts }\OtherTok{\textless{}{-}}\NormalTok{ data\_English }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(Genre)}
+
+\CommentTok{\# Filtriranje žanrova koji se pojavljuju 8 ili više puta}
+\NormalTok{data\_English\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ data\_English }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Genre }\SpecialCharTok{\%in\%}\NormalTok{ genre\_counts}\SpecialCharTok{$}\NormalTok{Genre[genre\_counts}\SpecialCharTok{$}\NormalTok{n }\SpecialCharTok{\textgreater{}=} \DecValTok{8}\NormalTok{])}
+
+
+\FunctionTok{ggplot}\NormalTok{(data\_English\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Genre)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"skyblue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Broj filmova po žanru {-} engleski jezik"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Žanr"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Broj filmova"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{,}\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-2-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Navedite žanrove koje želite ukloniti}
+\NormalTok{jezici\_za\_sadržavanje }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Portuguese"}\NormalTok{, }\StringTok{"Italian"}\NormalTok{,}\StringTok{"French"}\NormalTok{,}\StringTok{"Hindi"}\NormalTok{,}\StringTok{"Spanish"}\NormalTok{,}\StringTok{"English"}\NormalTok{,}\StringTok{"Indonesian"}\NormalTok{,}\StringTok{"Japanese"}\NormalTok{,}\StringTok{"Korean"}\NormalTok{,}\StringTok{"Turkish"}\NormalTok{)}
+
+\CommentTok{\# Filtrirajte podatke tako da uklonite retke s određenim žanrovima}
+\NormalTok{genre\_language\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ genre\_language }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Language }\SpecialCharTok{\%in\%}\NormalTok{ jezici\_za\_sadržavanje)}
+
+\NormalTok{genre\_language\_filtered}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 613 x 2
+##    Genre           Language
+##    <chr>           <chr>   
+##  1 Documentary     Japanese
+##  2 Thriller        Spanish 
+##  3 Science fiction Italian 
+##  4 Horror          English 
+##  5 Mystery         Hindi   
+##  6 Action          Hindi   
+##  7 Comedy          Turkish 
+##  8 Heist           English 
+##  9 Musical         English 
+## 10 Comedy          Hindi   
+## # i 603 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genre\_language\_filtered}\SpecialCharTok{$}\NormalTok{Language }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(genre\_language\_filtered}\SpecialCharTok{$}\NormalTok{Language)}
+\end{Highlighting}
+\end{Shaded}
+
+Iz ove tablice možemo zaključiti da ne možemo koristiti Hi-kvadrat test
+jer preduvjet očekivane frekvencije nije bio zadovoljen (očekivana
+frekvencija mora biti veća od 5)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Kreiranje kontingencijske tablice}
+\NormalTok{contingency\_table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(genre\_language\_filtered}\SpecialCharTok{$}\NormalTok{Genre, genre\_language\_filtered}\SpecialCharTok{$}\NormalTok{Language)}
+\NormalTok{contingency\_table}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                             
+##                              English French Hindi Indonesian Italian Japanese
+##   Action                          15      2     1          1       0        0
+##   Adventure                        8      0     0          0       0        0
+##   Aftershow                        6      0     0          0       0        0
+##   Animation                       17      0     0          0       0        0
+##   Anime                            1      0     0          0       0        3
+##   Anthology                        0      0     1          0       0        0
+##   Biographical                     1      0     0          0       0        0
+##   Biopic                           8      0     0          0       1        0
+##   Christmas                        6      0     0          0       0        0
+##   Comedy                          56      2     7          2       3        0
+##   Concert Film                     6      0     0          0       0        0
+##   Crime                            7      1     1          0       1        1
+##   Documentary                    121      6     2          0       0        2
+##   Drama                           41      3    13          3       5        1
+##   Family                           6      0     0          0       0        0
+##   Fantasy                          3      0     0          0       0        1
+##   Heist                            3      0     0          0       0        0
+##   Hidden-camera prank comedy       1      0     0          0       0        0
+##   Historical                       2      0     0          0       0        0
+##   Holiday                          1      0     0          0       0        0
+##   Horror                          14      0     2          0       0        0
+##   Interview                        6      0     0          0       0        0
+##   Making-of                        1      0     0          0       0        0
+##   Mentalism special                1      0     0          0       0        0
+##   Mockumentary                     2      0     0          0       0        0
+##   Musical                          9      0     0          0       0        0
+##   Mystery                          2      0     1          0       0        0
+##   One-man show                     3      0     0          0       0        0
+##   Psychological                    5      0     0          0       0        1
+##   Psychological horror             1      0     0          0       0        0
+##   Romance                         36      3     3          3       3        0
+##   Satire                           1      0     0          0       0        0
+##   Science fiction                 14      1     0          0       1        2
+##   Short                            7      0     0          0       0        0
+##   Sports                           3      0     0          0       1        0
+##   Stop Motion                      1      0     0          0       0        0
+##   Superhero                        5      0     0          0       0        0
+##   Teen                             2      0     0          0       0        0
+##   Thriller                        21      3     5          0       0        0
+##   Urban fantasy                    1      0     0          0       0        0
+##   Variety                          5      0     0          0       0        0
+##   War                              5      0     0          0       0        0
+##   Western                          3      0     0          0       0        0
+##   Zombie                           1      0     0          0       0        0
+##                             
+##                              Korean Portuguese Spanish Turkish
+##   Action                          1          0       0       0
+##   Adventure                       0          0       0       0
+##   Aftershow                       0          0       0       0
+##   Animation                       0          0       0       0
+##   Anime                           0          0       0       0
+##   Anthology                       0          0       0       0
+##   Biographical                    0          0       0       0
+##   Biopic                          0          0       0       0
+##   Christmas                       0          0       0       0
+##   Comedy                          1          7       3       2
+##   Concert Film                    0          0       0       0
+##   Crime                           0          0       1       0
+##   Documentary                     1          3      15       0
+##   Drama                           2          0       8       2
+##   Family                          0          0       1       0
+##   Fantasy                         0          0       0       0
+##   Heist                           0          0       0       0
+##   Hidden-camera prank comedy      0          0       0       0
+##   Historical                      0          0       0       0
+##   Holiday                         0          0       0       0
+##   Horror                          0          0       0       0
+##   Interview                       0          0       0       0
+##   Making-of                       0          0       1       0
+##   Mentalism special               0          0       0       0
+##   Mockumentary                    0          0       0       0
+##   Musical                         0          0       1       0
+##   Mystery                         0          0       0       0
+##   One-man show                    0          0       0       0
+##   Psychological                   0          0       0       0
+##   Psychological horror            0          0       0       0
+##   Romance                         0          1       3       1
+##   Satire                          0          0       0       0
+##   Science fiction                 1          0       0       0
+##   Short                           0          0       0       0
+##   Sports                          0          0       0       0
+##   Stop Motion                     0          0       0       0
+##   Superhero                       0          0       0       0
+##   Teen                            0          0       0       0
+##   Thriller                        1          0       6       0
+##   Urban fantasy                   0          0       0       0
+##   Variety                         0          0       0       0
+##   War                             0          0       0       0
+##   Western                         0          1       0       0
+##   Zombie                          0          0       0       0
+\end{verbatim}
+
+Razlog korištenja Fisherovog testa je nemogućnost korištenja Hi-kvadrat
+testa Postavljanje hipoteza: H0: ne postoji povezanost između Žanra i
+Područja H1: postoji povezanost između Žanra i Područja alpha=0.05
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fisher\_test }\OtherTok{\textless{}{-}} \FunctionTok{fisher.test}\NormalTok{(contingency\_table, }\AttributeTok{simulate.p.value =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(fisher\_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fisher's Exact Test for Count Data with simulated p-value (based on
+##  2000 replicates)
+## 
+## data:  contingency_table
+## p-value = 0.4593
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{as.data.frame.table}\NormalTok{(contingency\_table), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Var1, }\AttributeTok{y =}\NormalTok{ Var2, }\AttributeTok{fill =} \FunctionTok{log}\NormalTok{(Freq }\SpecialCharTok{+} \DecValTok{1}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"white"}\NormalTok{, }\AttributeTok{high =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Heatmap {-} Fisherov test"}\NormalTok{ ,}\AttributeTok{x =} \StringTok{"Genre"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Language"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"Frekvencija"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.02}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-4-1.pdf}
+Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno
+statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da
+postoji povezanost između Žanra i Područja, što se također može
+zaključiti i it heatmap-a kod kojeg uočavamo samo par odstupanja (npr.
+za engleski vidimo veću zastupljenost Christmas i Crime žanrova).
+
+\textbf{DRUGO PITANJE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"NetflixOriginals.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 584 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (4): Title, Genre, Premiere, Language
+## dbl (2): Runtime, IMDB Score
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Runtime , }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Runtime\textquotesingle{}}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Runtime , }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(}\FunctionTok{log}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Runtime) , }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Runtime\textquotesingle{}}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(}\FunctionTok{log}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Runtime) , }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-5-2.pdf}
+Graf ukazuje na to na Runtime varijabla ima donekle normalnu razdiobu,
+sa time da imamo vecu devijaciju od normalne razdiobe u lijevom repu a
+manju devjaciju u desom repu
+
+Kad primjenimo logaritam uočavamo da se situacija poboljšava u desnom
+repu tj da nestaje devijacija, no lijevi rep dobija vecu devijaciju
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#mozemo gledati više žanrova kao da je svaki svoj stupac ili budu svi u jednom stupcu pa da trazimo u tom stringu odredeni žanr}
+\NormalTok{data\_genre\_sep }\OtherTok{\textless{}{-}} \FunctionTok{separate}\NormalTok{(data2,Genre,}\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Genre\_4"}\NormalTok{),}\AttributeTok{sep =} \StringTok{"/"}\NormalTok{,}\AttributeTok{remove =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Expected 4 pieces. Missing pieces filled with `NA` in 582 rows [1, 2, 3, 4, 5,
+## 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ data\_genre\_sep}
+
+\NormalTok{genre\_1\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{)]}
+\NormalTok{genre\_2\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{)] }
+\NormalTok{genre\_3\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{)] }
+\NormalTok{genre\_4\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_4"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{)]}
+
+\FunctionTok{colnames}\NormalTok{(genre\_1\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_2\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_3\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_4\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+
+\NormalTok{genre\_runtime }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(genre\_1\_runtime,genre\_2\_runtime,genre\_3\_runtime,genre\_4\_runtime)}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{str\_trim}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre)}
+
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Musicial"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action thriller"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Action{-}thriller"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Heist film"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Heist"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romance drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romantic teen drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic teenage drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Science Fiction"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Action"}\NormalTok{,}\StringTok{"Action comedy"}\NormalTok{,}\StringTok{"Action{-}adventure"}\NormalTok{,}\StringTok{"Action{-}thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Action"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Adventure"}\NormalTok{,}\StringTok{"Adventure{-}romance"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Adventure"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Animated musical comedy"}\NormalTok{,}\StringTok{"Animation"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Animation"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Black comedy"}\NormalTok{,}\StringTok{"Comedy"}\NormalTok{,}\StringTok{"Comedy horror"}\NormalTok{,}\StringTok{"Comedy mystery"}\NormalTok{,}\StringTok{"Comedy{-}drama"}\NormalTok{,}\StringTok{"Coming{-}of{-}age comedy{-}drama"}\NormalTok{,}\StringTok{"Dark comedy"}\NormalTok{,}\StringTok{"Dance comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Comedy"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Christian musical"}\NormalTok{,}\StringTok{"Christmas"}\NormalTok{,}\StringTok{"Christmas comedy"}\NormalTok{,}\StringTok{"Christmas musical"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Christmas"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Crime drama"}\NormalTok{,}\StringTok{"Crime thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Crime"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Drama"}\NormalTok{,}\StringTok{"Drama{-}Comedy"}\NormalTok{,}\StringTok{"Supernatural drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Family"}\NormalTok{,}\StringTok{"Family film"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Family"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Historical drama"}\NormalTok{,}\StringTok{"Historical{-}epic"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Historical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Horror{-}thriller"}\NormalTok{,}\StringTok{"Horror thriller"}\NormalTok{,}\StringTok{"Horror comedy"}\NormalTok{,}\StringTok{"Horror anthology"}\NormalTok{,}\StringTok{"Horror"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Horror"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Musical"}\NormalTok{,}\StringTok{"Musical comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Political thriller"}\NormalTok{,}\StringTok{"Psychological thriller"}\NormalTok{,}\StringTok{"Psychological thriller drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Psychological"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Romantic comedy"}\NormalTok{,}\StringTok{"Romantic comedy{-}drama"}\NormalTok{,}\StringTok{"Romantic drama"}\NormalTok{,}\StringTok{"Romance"}\NormalTok{,}\StringTok{"Romantic teenage drama"}\NormalTok{,}\StringTok{"Romantic thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Romance"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Science fiction adventure"}\NormalTok{,}\StringTok{"Science fiction thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Sports film"}\NormalTok{,}\StringTok{"Sports{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Sports"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Spy thriller"}\NormalTok{,}\StringTok{"Thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Thriller"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Superhero"}\NormalTok{,}\StringTok{"Superhero{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Superhero"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Teen comedy horror"}\NormalTok{,}\StringTok{"Teen comedy{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Teen"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Variety Show"}\NormalTok{,}\StringTok{"Variety show"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Variety"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"War"}\NormalTok{,}\StringTok{"War drama"}\NormalTok{,}\StringTok{"War{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"War"}
+
+\NormalTok{genre\_runtime }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(genre\_runtime)}
+
+
+
+\FunctionTok{qqnorm}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action"}\NormalTok{] , }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Normalna razdioba trajanja akcijskih filmova\textquotesingle{}}\NormalTok{);}\FunctionTok{qqline}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action"}\NormalTok{] , }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(Runtime }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Genre, }\AttributeTok{data =}\NormalTok{ genre\_runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action"}\NormalTok{,], }\AttributeTok{col =} \StringTok{"lightgreen"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Boxplot {-} Trajanje filmova žanra Action"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Trajanje (min)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Comedy"}\NormalTok{] , }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Normalna razdioba trajanja komedija\textquotesingle{}}\NormalTok{);}\FunctionTok{qqline}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action"}\NormalTok{] , }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(Runtime }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Genre, }\AttributeTok{data =}\NormalTok{ genre\_runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Comedy"}\NormalTok{,], }\AttributeTok{col =} \StringTok{"lightgreen"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Boxplot {-} Trajanje filmova žanra Comedy"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Trajanje (min)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Documentary"}\NormalTok{] , }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{,}\AttributeTok{main=}\StringTok{\textquotesingle{}Normalna razdioba trajanja dokumentaraca\textquotesingle{}}\NormalTok{);}\FunctionTok{qqline}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action"}\NormalTok{] , }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(Runtime }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Genre, }\AttributeTok{data =}\NormalTok{ genre\_runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Documentary"}\NormalTok{,], }\AttributeTok{col =} \StringTok{"lightgreen"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Boxplot {-} Trajanje filmova žanra Documentary"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Trajanje (min)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Runtime[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Documentary"}\NormalTok{], }\AttributeTok{col =} \StringTok{"skyblue"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Histogram {-} Trajanje filmova žanra Action"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Trajanje (min)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Broj filmova"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-6-7.pdf}
+Iz priloženih grafova, osobito box-plotova se uočava da Runtime za
+žanrove Comedy i Action prati noramlnu razdiobu, dok smo s druge strane
+izdvojili žanr Documentary koji u lijevom repu pokazuje veće devijacije
+u odnosu na Comedy i Action.
+
+ANOVA test za testiranje odnosa Genre i Runtime H0: srednja vrijednost
+Runtime za sve Genre je jednaka H1: srednja vrijednost Runtime za sve
+Genre nije jednaka
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{one.way }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(Runtime }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Genre, }\AttributeTok{data=}\NormalTok{ genre\_runtime)}
+\FunctionTok{summary}\NormalTok{(one.way)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Df Sum Sq Mean Sq F value Pr(>F)    
+## Genre        43 250006    5814   11.53 <2e-16 ***
+## Residuals   599 301969     504                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Mala vrijednost Pr(\textgreater F) (p-value) ukazuje na to da varijabla
+Genre ima stvaran utjecaj na RunTime varijablu, odnosno da žanr filma
+ima utjecaj na duljinu samog filma pa se time H0 pretpostavka odbacuje u
+korist H1.
+
+Pet žanrova sa najduljom sredinom trajanja i pet žanrova sa najkraćom
+sredinom trajanja.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genre\_runtime }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Genre) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(Runtime))}\OtherTok{{-}\textgreater{}}\NormalTok{genre\_runtime\_mean}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{slice\_max}\NormalTok{(genre\_runtime\_mean,}\StringTok{\textasciigrave{}}\AttributeTok{mean(Runtime)}\StringTok{\textasciigrave{}}\NormalTok{,}\AttributeTok{n=}\DecValTok{5}\NormalTok{),}\FunctionTok{slice\_min}\NormalTok{(genre\_runtime\_mean,}\StringTok{\textasciigrave{}}\AttributeTok{mean(Runtime)}\StringTok{\textasciigrave{}}\NormalTok{,}\AttributeTok{n=}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 2
+##    Genre       `mean(Runtime)`
+##    <chr>                 <dbl>
+##  1 Anthology             149  
+##  2 Zombie                148  
+##  3 Heist                 131. 
+##  4 Historical            130. 
+##  5 War                   127. 
+##  6 Short                  11.3
+##  7 Aftershow              23.7
+##  8 Interview              23.7
+##  9 Stop Motion            42  
+## 10 Making-of              42.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Assuming your data frame is named \textquotesingle{}your\_data\_frame\textquotesingle{}}
+\NormalTok{genre\_runtime\_mean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{mean(Runtime)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Genre =} \FunctionTok{factor}\NormalTok{(Genre, }\AttributeTok{levels =} \FunctionTok{unique}\NormalTok{(Genre))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Genre, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{mean(Runtime)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xend =}\NormalTok{ Genre, }\AttributeTok{yend =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{color =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\textbf{TRECE PITANJE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data3 }\OtherTok{\textless{}{-}}\NormalTok{ data2}
+
+
+\NormalTok{data3}\SpecialCharTok{$}\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{".*?(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\}).*"}\NormalTok{, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, data3}\SpecialCharTok{$}\NormalTok{Premiere)}
+
+\NormalTok{score\_year }\OtherTok{\textless{}{-}}\NormalTok{ data3[, }\FunctionTok{c}\NormalTok{(}\StringTok{"IMDB Score"}\NormalTok{, }\StringTok{"Year"}\NormalTok{)]}
+
+\NormalTok{score\_year}\SpecialCharTok{$}\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(score\_year}\SpecialCharTok{$}\NormalTok{Year)}
+
+\FunctionTok{summary}\NormalTok{(score\_year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    IMDB Score         Year     
+##  Min.   :2.500   Min.   :2014  
+##  1st Qu.:5.700   1st Qu.:2018  
+##  Median :6.350   Median :2019  
+##  Mean   :6.272   Mean   :2019  
+##  3rd Qu.:7.000   3rd Qu.:2020  
+##  Max.   :9.000   Max.   :2021
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score\_year }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(score\_year, }\AttributeTok{Year =} \FunctionTok{ifelse}\NormalTok{(Year }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{2014}\NormalTok{,}\DecValTok{2015}\NormalTok{,}\DecValTok{2016}\NormalTok{,}\DecValTok{2017}\NormalTok{), }\StringTok{"stari"}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(Year)))}
+\NormalTok{score\_year }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(score\_year, }\AttributeTok{Year =} \FunctionTok{ifelse}\NormalTok{(Year }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{2018}\NormalTok{, }\DecValTok{2019}\NormalTok{), }\StringTok{"srednji"}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(Year)))}
+\NormalTok{score\_year }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(score\_year, }\AttributeTok{Year =} \FunctionTok{ifelse}\NormalTok{(Year }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{2020}\NormalTok{, }\DecValTok{2021}\NormalTok{), }\StringTok{"novi"}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(Year)))}
+
+\NormalTok{score\_year}\SpecialCharTok{$}\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(score\_year}\SpecialCharTok{$}\NormalTok{Year)}
+
+
+
+\FunctionTok{ggplot}\NormalTok{(score\_year, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{fill =}\NormalTok{ Year)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Boxplot {-} IMDB Score po Godini"}\NormalTok{, }\AttributeTok{y =} \StringTok{"IMDB Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"srednji"} \OtherTok{=} \StringTok{"lightblue"}\NormalTok{, }\StringTok{"novi"} \OtherTok{=} \StringTok{"lightgreen"}\NormalTok{, }\StringTok{"stari"} \OtherTok{=} \StringTok{"magenta"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+ANOVA test za testiranje odnosa Razdoblja i IMDB Scorea H0: srednja
+vrijednost IMDB Scorea za sva Razdoblja je jednaka H1: srednja
+vrijednost IMDB Scorea za sva Razdoblja nije jednaka alfa = 0.05
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Izvršavanje ANOVA analize}
+\NormalTok{anova\_result }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Year, }\AttributeTok{data =}\NormalTok{ score\_year)}
+
+\CommentTok{\# Ispisivanje rezultata}
+\FunctionTok{summary}\NormalTok{(anova\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Df Sum Sq Mean Sq F value Pr(>F)  
+## Year          2    8.7   4.342   4.584 0.0106 *
+## Residuals   581  550.4   0.947                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+P-vrijednost manja od 0.05 sugerira da postoji statistički značajna
+razlika između godina u odnosu na IMDB Score. Ova razlika nije nužno
+velika, ali je statistički značajna. Možemo odbaciti H0 u korist H1
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score\_year }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avgOcjena=}\FunctionTok{mean}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\NormalTok{))}\OtherTok{{-}\textgreater{}}\NormalTok{score\_year\_mean}
+\NormalTok{score\_year\_mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   Year    avgOcjena
+##   <fct>       <dbl>
+## 1 novi         6.15
+## 2 srednji      6.30
+## 3 stari        6.49
+\end{verbatim}
+
+\textbf{CETVRTO PITANJE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data4 }\OtherTok{\textless{}{-}}\NormalTok{ data2}
+\NormalTok{data4 }\OtherTok{\textless{}{-}}\NormalTok{ data4[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)]}
+
+
+\FunctionTok{boxplot}\NormalTok{(data4}\SpecialCharTok{$}\NormalTok{Runtime)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(data4}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-13-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(data4}\SpecialCharTok{$}\NormalTok{Runtime)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    4.00   86.00   97.00   93.58  108.00  209.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lmOcjene }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Runtime, }\AttributeTok{data =}\NormalTok{ data4) }\CommentTok{\#Create the linear regression}
+\FunctionTok{summary}\NormalTok{(lmOcjene) }\CommentTok{\#Review the results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ Runtime, data = data4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.8231 -0.5783  0.0729  0.6842  2.7130 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  6.406737   0.142588  44.932   <2e-16 ***
+## Runtime     -0.001443   0.001461  -0.987    0.324    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9793 on 582 degrees of freedom
+## Multiple R-squared:  0.001673,   Adjusted R-squared:  -4.283e-05 
+## F-statistic: 0.975 on 1 and 582 DF,  p-value: 0.3238
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data4, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Runtime, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regresijski grafikon {-} IMDB Score vs. Runtime"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Trajanje filma"}\NormalTok{, }\AttributeTok{y =} \StringTok{"IMDB Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-13-3.pdf}
+
+Ako uzmemo u obzir sve filmove, vidimo blagi negativni trend u odnosu
+Ocjene i Duljine
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Izračun kvantila}
+\NormalTok{quantile\_threshold }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(data4}\SpecialCharTok{$}\NormalTok{Runtime, }\AttributeTok{probs =} \FloatTok{0.67}\NormalTok{)  }\CommentTok{\# Top 33\%}
+
+\CommentTok{\# Izdvojeni retci s \textquotesingle{}Runtime\textquotesingle{} u top 33\%}
+\NormalTok{selected\_rows }\OtherTok{\textless{}{-}}\NormalTok{ data4 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Runtime }\SpecialCharTok{\textgreater{}=}\NormalTok{ quantile\_threshold)}
+
+\CommentTok{\# Ispis odabranih redaka}
+\FunctionTok{print}\NormalTok{(selected\_rows)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 194 x 2
+##    Runtime `IMDB Score`
+##      <dbl>        <dbl>
+##  1     147          3.5
+##  2     112          3.7
+##  3     149          3.7
+##  4     139          4.1
+##  5     112          4.1
+##  6     144          4.3
+##  7     115          4.3
+##  8     120          4.4
+##  9     105          4.4
+## 10     107          4.5
+## # i 184 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lmOcjene }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Runtime , }\AttributeTok{data =}\NormalTok{ selected\_rows) }\CommentTok{\#Model linearne regresije}
+\FunctionTok{summary}\NormalTok{(lmOcjene) }\CommentTok{\#Summary rezultata modela}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ Runtime, data = selected_rows)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -3.11911 -0.52740  0.06366  0.66331  1.97104 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 5.348563   0.582360   9.184   <2e-16 ***
+## Runtime     0.008643   0.004876   1.773   0.0779 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9516 on 192 degrees of freedom
+## Multiple R-squared:  0.0161, Adjusted R-squared:  0.01098 
+## F-statistic: 3.142 on 1 and 192 DF,  p-value: 0.07788
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(selected\_rows, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Runtime, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regresijski grafikon {-} IMDB Score vs. Runtime"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Trajanje filma"}\NormalTok{, }\AttributeTok{y =} \StringTok{"IMDB Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reziduali }\OtherTok{\textless{}{-}} \FunctionTok{residuals}\NormalTok{(lmOcjene)}
+
+
+\FunctionTok{plot}\NormalTok{(reziduali)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{redemption_statistika_files/figure-latex/unnamed-chunk-14-2.pdf}
+
+A ako uzmemo u obzir samo filmove koji pripadaju u gornjih 33\% po
+Runtimeu, možemo primjetiti blagi pozitivni trend.
+
+Reziduali također imaju srednju vrijednost blizu nule, što je dobro.
+Srednja vrijednost reziduala blizu nule ukazuje na to da model nije
+sustavno precijenio ili podcijenio stvarne vrijednosti.
+
+\textbf{PETI ZADATAK}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data5 }\OtherTok{\textless{}{-}}\NormalTok{ data2}
+\NormalTok{score\_runtime\_language }\OtherTok{\textless{}{-}}\NormalTok{data5[,}\FunctionTok{c}\NormalTok{(}\StringTok{"IMDB Score"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"Language"}\NormalTok{)] }
+
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Japanese"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Japanese"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Spanish"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/Basque"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/Catalan"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Swedish"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Swedish"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Taiwanese/Mandarin"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Thia/English"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Mandarin"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Mandarin"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Khmer/English/French"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"French"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Hindi"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Hindi"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"Spanish/English"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Spanish"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Korean"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Korean"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Arabic"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Arabic"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Russian"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Russian"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Akan"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"English"}
+\NormalTok{score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language[score\_runtime\_language}\SpecialCharTok{$}\NormalTok{Language}\SpecialCharTok{==}\StringTok{"English/Ukranian/Russian"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Russian"}
+
+
+\NormalTok{jezici\_za\_sadržavanje }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Portuguese"}\NormalTok{, }\StringTok{"Italian"}\NormalTok{,}\StringTok{"French"}\NormalTok{,}\StringTok{"Hindi"}\NormalTok{,}\StringTok{"Spanish"}\NormalTok{,}\StringTok{"English"}\NormalTok{,}\StringTok{"Indonesian"}\NormalTok{,}\StringTok{"Japanese"}\NormalTok{,}\StringTok{"Korean"}\NormalTok{,}\StringTok{"Turkish"}\NormalTok{)}
+
+\CommentTok{\# Filtrirajte podatke tako da uklonite retke s određenim žanrovima}
+\NormalTok{score\_runtime\_language\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ score\_runtime\_language }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Language }\SpecialCharTok{\%in\%}\NormalTok{ jezici\_za\_sadržavanje)}
+
+
+\FunctionTok{require}\NormalTok{(fastDummies)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: fastDummies
+\end{verbatim}
+
+\begin{verbatim}
+## Thank you for using fastDummies!
+\end{verbatim}
+
+\begin{verbatim}
+## To acknowledge our work, please cite the package:
+\end{verbatim}
+
+\begin{verbatim}
+## Kaplan, J. & Schlegel, B. (2023). fastDummies: Fast Creation of Dummy (Binary) Columns and Rows from Categorical Variables. Version 1.7.1. URL: https://github.com/jacobkap/fastDummies, https://jacobkap.github.io/fastDummies/.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score\_runtime\_language\_filtered.d }\OtherTok{\textless{}{-}} \FunctionTok{dummy\_cols}\NormalTok{(score\_runtime\_language\_filtered, }\AttributeTok{select\_columns=}\StringTok{\textquotesingle{}Language\textquotesingle{}}\NormalTok{)}
+
+
+\NormalTok{lm\_score\_runtime\_lang }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}}\SpecialCharTok{\textasciitilde{}}\NormalTok{Runtime }\SpecialCharTok{+}\NormalTok{ Language\_English}\SpecialCharTok{+}\NormalTok{Language\_French}\SpecialCharTok{+}\NormalTok{Language\_Hindi}\SpecialCharTok{+}\NormalTok{Language\_Indonesian}\SpecialCharTok{+}\NormalTok{Language\_Italian}\SpecialCharTok{+}\NormalTok{Language\_Japanese}\SpecialCharTok{+}\NormalTok{Language\_Korean}\SpecialCharTok{+}\NormalTok{Language\_Portuguese}\SpecialCharTok{+}\NormalTok{Language\_Spanish}\SpecialCharTok{+}\NormalTok{Language\_Turkish, }\AttributeTok{data=}\NormalTok{score\_runtime\_language\_filtered.d)}
+\FunctionTok{summary}\NormalTok{(lm\_score\_runtime\_lang)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ Runtime + Language_English + Language_French + 
+##     Language_Hindi + Language_Indonesian + Language_Italian + 
+##     Language_Japanese + Language_Korean + Language_Portuguese + 
+##     Language_Spanish + Language_Turkish, data = score_runtime_language_filtered.d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7038 -0.5849  0.0859  0.7006  2.6138 
+## 
+## Coefficients: (1 not defined because of singularities)
+##                       Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)          5.6804203  0.4560785  12.455   <2e-16 ***
+## Runtime             -0.0002006  0.0014979  -0.134   0.8935    
+## Language_English     0.7224193  0.4327391   1.669   0.0956 .  
+## Language_French      0.1766834  0.4783903   0.369   0.7120    
+## Language_Hindi       0.3989940  0.4597188   0.868   0.3858    
+## Language_Indonesian  0.1848412  0.5361043   0.345   0.7304    
+## Language_Italian    -0.1178335  0.5007670  -0.235   0.8141    
+## Language_Japanese    0.2389870  0.5479841   0.436   0.6629    
+## Language_Korean      0.4572488  0.5632184   0.812   0.4172    
+## Language_Portuguese  0.5545504  0.5118477   1.083   0.2791    
+## Language_Spanish     0.6395902  0.4570956   1.399   0.1623    
+## Language_Turkish            NA         NA      NA       NA    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9611 on 543 degrees of freedom
+## Multiple R-squared:  0.04364,    Adjusted R-squared:  0.02602 
+## F-statistic: 2.478 on 10 and 543 DF,  p-value: 0.006596
+\end{verbatim}
+
+Iz priloženog vidimo da nema korelacije između Ocjene filma te
+kombinacije Duljine trajanje i Jezika jer model objašnjava samo 4.4\%
+varijance u izlaznim podacima, a sudeći po F-testu kombinacija Duljine
+filma te Jezika nema značajnog utjecaja na ishod ocjene.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data5\_plusGenre }\OtherTok{\textless{}{-}}\NormalTok{ data\_genre\_sep}
+
+\NormalTok{genre\_1\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)]}
+\NormalTok{genre\_2\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)] }
+\NormalTok{genre\_3\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)] }
+\NormalTok{genre\_4\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_4"}\NormalTok{,}\StringTok{"Runtime"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)]}
+
+\FunctionTok{colnames}\NormalTok{(genre\_1\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_2\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_3\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_4\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+
+\NormalTok{genre\_runtime }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(genre\_1\_runtime,genre\_2\_runtime,genre\_3\_runtime,genre\_4\_runtime)}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{str\_trim}\NormalTok{(genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre)}
+
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Musicial"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action thriller"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Action{-}thriller"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Heist film"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Heist"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romance drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romantic teen drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic teenage drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Science Fiction"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Action"}\NormalTok{,}\StringTok{"Action comedy"}\NormalTok{,}\StringTok{"Action{-}adventure"}\NormalTok{,}\StringTok{"Action{-}thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Action"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Adventure"}\NormalTok{,}\StringTok{"Adventure{-}romance"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Adventure"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Animated musical comedy"}\NormalTok{,}\StringTok{"Animation"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Animation"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Black comedy"}\NormalTok{,}\StringTok{"Comedy"}\NormalTok{,}\StringTok{"Comedy horror"}\NormalTok{,}\StringTok{"Comedy mystery"}\NormalTok{,}\StringTok{"Comedy{-}drama"}\NormalTok{,}\StringTok{"Coming{-}of{-}age comedy{-}drama"}\NormalTok{,}\StringTok{"Dark comedy"}\NormalTok{,}\StringTok{"Dance comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Comedy"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Christian musical"}\NormalTok{,}\StringTok{"Christmas"}\NormalTok{,}\StringTok{"Christmas comedy"}\NormalTok{,}\StringTok{"Christmas musical"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Christmas"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Crime drama"}\NormalTok{,}\StringTok{"Crime thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Crime"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Drama"}\NormalTok{,}\StringTok{"Drama{-}Comedy"}\NormalTok{,}\StringTok{"Supernatural drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Drama"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Family"}\NormalTok{,}\StringTok{"Family film"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Family"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Historical drama"}\NormalTok{,}\StringTok{"Historical{-}epic"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Historical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Horror{-}thriller"}\NormalTok{,}\StringTok{"Horror thriller"}\NormalTok{,}\StringTok{"Horror comedy"}\NormalTok{,}\StringTok{"Horror anthology"}\NormalTok{,}\StringTok{"Horror"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Horror"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Musical"}\NormalTok{,}\StringTok{"Musical comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Political thriller"}\NormalTok{,}\StringTok{"Psychological thriller"}\NormalTok{,}\StringTok{"Psychological thriller drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Psychological"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Romantic comedy"}\NormalTok{,}\StringTok{"Romantic comedy{-}drama"}\NormalTok{,}\StringTok{"Romantic drama"}\NormalTok{,}\StringTok{"Romance"}\NormalTok{,}\StringTok{"Romantic teenage drama"}\NormalTok{,}\StringTok{"Romantic thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Romance"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Science fiction adventure"}\NormalTok{,}\StringTok{"Science fiction thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Sports film"}\NormalTok{,}\StringTok{"Sports{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Sports"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Spy thriller"}\NormalTok{,}\StringTok{"Thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Thriller"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Superhero"}\NormalTok{,}\StringTok{"Superhero{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Superhero"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Teen comedy horror"}\NormalTok{,}\StringTok{"Teen comedy{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Teen"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Variety Show"}\NormalTok{,}\StringTok{"Variety show"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Variety"}
+\NormalTok{genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre[genre\_runtime}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"War"}\NormalTok{,}\StringTok{"War drama"}\NormalTok{,}\StringTok{"War{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"War"}
+
+\NormalTok{genre\_runtime }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(genre\_runtime)}
+
+
+
+
+\CommentTok{\# Primjena "one{-}hot encoding" na varijablu \textquotesingle{}Genre\textquotesingle{}}
+\NormalTok{score\_runtime\_genre\_d }\OtherTok{\textless{}{-}} \FunctionTok{dummy\_cols}\NormalTok{(genre\_runtime, }\AttributeTok{select\_columns=}\StringTok{\textquotesingle{}Genre\textquotesingle{}}\NormalTok{, }\AttributeTok{remove\_first\_dummy =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{score\_runtime\_genre\_d\_dobar }\OtherTok{\textless{}{-}}\NormalTok{ score\_runtime\_genre\_d[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+
+\CommentTok{\# Stvaranje linearnog modela}
+\NormalTok{lm\_score\_runtime\_genre }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Runtime }\SpecialCharTok{+}\NormalTok{ ., }\AttributeTok{data=}\NormalTok{score\_runtime\_genre\_d\_dobar)}
+
+\CommentTok{\# Prikazivanje rezultata modela}
+\FunctionTok{summary}\NormalTok{(lm\_score\_runtime\_genre)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ Runtime + ., data = score_runtime_genre_d_dobar)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.2636 -0.3891  0.0323  0.5065  2.3806 
+## 
+## Coefficients:
+##                                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                         4.865386   0.245067  19.853  < 2e-16 ***
+## Runtime                             0.008246   0.001518   5.433 8.06e-08 ***
+## Genre_Adventure                     0.889634   0.347224   2.562  0.01065 *  
+## Genre_Aftershow                     1.689456   0.406793   4.153 3.76e-05 ***
+## Genre_Animation                     1.427229   0.283442   5.035 6.32e-07 ***
+## Genre_Anime                         0.690895   0.458272   1.508  0.13218    
+## Genre_Anthology                     1.505945   0.855862   1.760  0.07899 .  
+## Genre_Biographical                  1.101758   0.853682   1.291  0.19734    
+## Genre_Biopic                        0.647700   0.332270   1.949  0.05172 .  
+## Genre_Christmas                     0.702107   0.386090   1.819  0.06949 .  
+## Genre_Comedy                        0.154108   0.204292   0.754  0.45094    
+## `Genre_Concert Film`                1.954332   0.386329   5.059 5.62e-07 ***
+## Genre_Crime                         0.867676   0.294475   2.947  0.00334 ** 
+## Genre_Documentary                   1.419961   0.198636   7.149 2.57e-12 ***
+## Genre_Drama                         0.545283   0.203519   2.679  0.00758 ** 
+## Genre_Family                        0.160378   0.364029   0.441  0.65969    
+## Genre_Fantasy                       0.111234   0.415482   0.268  0.78900    
+## Genre_Heist                        -1.148374   0.515950  -2.226  0.02640 *  
+## `Genre_Hidden-camera prank comedy`  1.025449   0.854274   1.200  0.23047    
+## Genre_Historical                    1.108498   0.618093   1.793  0.07341 .  
+## Genre_Holiday                       0.377020   0.853636   0.442  0.65889    
+## Genre_Horror                       -0.337144   0.264198  -1.276  0.20241    
+## Genre_Interview                     1.689456   0.406793   4.153 3.76e-05 ***
+## `Genre_Making-of`                   2.234155   0.625150   3.574  0.00038 ***
+## `Genre_Mentalism special`           1.830555   0.858319   2.133  0.03335 *  
+## Genre_Mockumentary                  0.460987   0.620869   0.742  0.45808    
+## Genre_Musical                       0.603892   0.323742   1.865  0.06262 .  
+## Genre_Mystery                      -0.819883   0.514748  -1.593  0.11174    
+## `Genre_One-man show`                1.454332   0.514949   2.824  0.00490 ** 
+## Genre_Psychological                 0.066395   0.386959   0.172  0.86382    
+## `Genre_Psychological horror`        0.259481   0.853883   0.304  0.76132    
+## Genre_Romance                       0.193180   0.213634   0.904  0.36622    
+## Genre_Satire                        0.134742   0.617393   0.218  0.82731    
+## `Genre_Science fiction`             0.110383   0.264400   0.417  0.67647    
+## Genre_Short                         1.812979   0.392544   4.619 4.73e-06 ***
+## Genre_Sports                        0.418250   0.455189   0.919  0.35854    
+## `Genre_Stop Motion`                 0.988278   0.859495   1.150  0.25067    
+## Genre_Superhero                    -0.401122   0.415014  -0.967  0.33417    
+## Genre_Teen                          0.084219   0.617709   0.136  0.89160    
+## Genre_Thriller                     -0.125323   0.224770  -0.558  0.57735    
+## `Genre_Urban fantasy`               0.469820   0.853719   0.550  0.58230    
+## Genre_Variety                       0.746445   0.421598   1.771  0.07715 .  
+## Genre_War                           0.829009   0.415968   1.993  0.04672 *  
+## Genre_Western                      -0.212411   0.454992  -0.467  0.64078    
+## Genre_Zombie                       -0.185809   0.855754  -0.217  0.82818    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.834 on 598 degrees of freedom
+## Multiple R-squared:  0.3412, Adjusted R-squared:  0.2927 
+## F-statistic: 7.038 on 44 and 598 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score\_runtime\_genre\_d\_no\_runtime }\OtherTok{\textless{}{-}}\NormalTok{ score\_runtime\_genre\_d[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{score\_runtime\_genre\_d\_no\_runtime }\OtherTok{\textless{}{-}}\NormalTok{ score\_runtime\_genre\_d\_no\_runtime[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{lm\_score\_genre }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ . , }\AttributeTok{data=}\NormalTok{score\_runtime\_genre\_d\_no\_runtime)}
+
+\CommentTok{\# Prikazivanje rezultata modela}
+\FunctionTok{summary}\NormalTok{(lm\_score\_genre)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ ., data = score_runtime_genre_d_no_runtime)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4365 -0.3982  0.0214  0.5214  2.3881 
+## 
+## Coefficients:
+##                                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                         5.757143   0.186273  30.907  < 2e-16 ***
+## Genre_Adventure                     0.767857   0.354654   2.165 0.030775 *  
+## Genre_Aftershow                     0.992857   0.395145   2.513 0.012245 *  
+## Genre_Animation                     0.995798   0.278495   3.576 0.000378 ***
+## Genre_Anime                         0.392857   0.465683   0.844 0.399222    
+## Genre_Anthology                     1.842857   0.873699   2.109 0.035337 *  
+## Genre_Biographical                  1.042857   0.873699   1.194 0.233103    
+## Genre_Biopic                        0.642857   0.340087   1.890 0.059204 .  
+## Genre_Christmas                     0.676190   0.395145   1.711 0.087554 .  
+## Genre_Comedy                        0.054762   0.208260   0.263 0.792680    
+## `Genre_Concert Film`                1.876190   0.395145   4.748 2.57e-06 ***
+## Genre_Crime                         0.919780   0.301244   3.053 0.002364 ** 
+## Genre_Documentary                   1.179335   0.198193   5.950 4.55e-09 ***
+## Genre_Drama                         0.521429   0.208260   2.504 0.012554 *  
+## Genre_Family                        0.128571   0.372547   0.345 0.730129    
+## Genre_Fantasy                       0.002857   0.424768   0.007 0.994635    
+## Genre_Heist                        -0.957143   0.526860  -1.817 0.069764 .  
+## `Genre_Hidden-camera prank comedy`  0.842857   0.873699   0.965 0.335085    
+## Genre_Historical                    1.292857   0.631683   2.047 0.041125 *  
+## Genre_Holiday                       0.342857   0.873699   0.392 0.694887    
+## Genre_Horror                       -0.383459   0.270274  -1.419 0.156484    
+## Genre_Interview                     0.992857   0.395145   2.513 0.012245 *  
+## `Genre_Making-of`                   1.692857   0.631683   2.680 0.007567 ** 
+## `Genre_Mentalism special`           1.342857   0.873699   1.537 0.124827    
+## Genre_Mockumentary                  0.092857   0.631683   0.147 0.883182    
+## Genre_Musical                       0.352857   0.327968   1.076 0.282410    
+## Genre_Mystery                      -0.823810   0.526860  -1.564 0.118435    
+## `Genre_One-man show`                1.376190   0.526860   2.612 0.009226 ** 
+## Genre_Psychological                 0.209524   0.395145   0.530 0.596139    
+## `Genre_Psychological horror`        0.142857   0.873699   0.164 0.870173    
+## Genre_Romance                       0.139286   0.218425   0.638 0.523924    
+## Genre_Satire                        0.042857   0.631683   0.068 0.945931    
+## `Genre_Science fiction`             0.037594   0.270274   0.139 0.889421    
+## Genre_Short                         1.014286   0.372547   2.723 0.006666 ** 
+## Genre_Sports                        0.342857   0.465683   0.736 0.461870    
+## `Genre_Stop Motion`                 0.442857   0.873699   0.507 0.612428    
+## Genre_Superhero                    -0.417143   0.424768  -0.982 0.326473    
+## Genre_Teen                         -0.057143   0.631683  -0.090 0.927951    
+## Genre_Thriller                     -0.144643   0.230031  -0.629 0.529721    
+## `Genre_Urban fantasy`               0.542857   0.873699   0.621 0.534618    
+## Genre_Variety                       0.342857   0.424768   0.807 0.419893    
+## Genre_War                           0.982857   0.424768   2.314 0.021013 *  
+## Genre_Western                      -0.232143   0.465683  -0.498 0.618315    
+## Genre_Zombie                        0.142857   0.873699   0.164 0.870173    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.8536 on 599 degrees of freedom
+## Multiple R-squared:  0.3087, Adjusted R-squared:  0.259 
+## F-statistic: 6.219 on 43 and 599 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+R² ovdje objašnjava čak 34\% varijance i to potvrđuje jako mala
+p-vrijednost te nas upućuje na to da kombinacija Duljine i Žanra filma i
+značajan utjecaj na ocjenu. U slučaju kada razmatramo samo utjecaj
+žanrova na score, tad je jasno da samo 30\% varijance je objašnjeno u
+našem testu.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data5\_plusGenre\_plusPremiere }\OtherTok{\textless{}{-}}\NormalTok{ data\_genre\_sep}
+
+\NormalTok{genre\_1\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre\_plusPremiere[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_1"}\NormalTok{,}\StringTok{"Premiere"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)]}
+\NormalTok{genre\_2\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre\_plusPremiere[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_2"}\NormalTok{,}\StringTok{"Premiere"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)] }
+\NormalTok{genre\_3\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre\_plusPremiere[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_3"}\NormalTok{,}\StringTok{"Premiere"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)] }
+\NormalTok{genre\_4\_runtime }\OtherTok{\textless{}{-}}\NormalTok{data5\_plusGenre\_plusPremiere[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Genre\_4"}\NormalTok{,}\StringTok{"Premiere"}\NormalTok{,}\StringTok{"IMDB Score"}\NormalTok{)]}
+
+\FunctionTok{colnames}\NormalTok{(genre\_1\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_2\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_3\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+\FunctionTok{colnames}\NormalTok{(genre\_4\_runtime)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Genre"}
+
+\NormalTok{genre\_score\_premiere }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(genre\_1\_runtime,genre\_2\_runtime,genre\_3\_runtime,genre\_4\_runtime)}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\OtherTok{\textless{}{-}} \FunctionTok{str\_trim}\NormalTok{(genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre)}
+
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Musicial"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Action thriller"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Action{-}thriller"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Heist film"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Heist"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romance drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic drama"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Romantic teen drama"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Romantic teenage drama"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre}\SpecialCharTok{==}\StringTok{"Science Fiction"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Action"}\NormalTok{,}\StringTok{"Action comedy"}\NormalTok{,}\StringTok{"Action{-}adventure"}\NormalTok{,}\StringTok{"Action{-}thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Action"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Adventure"}\NormalTok{,}\StringTok{"Adventure{-}romance"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Adventure"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Animated musical comedy"}\NormalTok{,}\StringTok{"Animation"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Animation"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Black comedy"}\NormalTok{,}\StringTok{"Comedy"}\NormalTok{,}\StringTok{"Comedy horror"}\NormalTok{,}\StringTok{"Comedy mystery"}\NormalTok{,}\StringTok{"Comedy{-}drama"}\NormalTok{,}\StringTok{"Coming{-}of{-}age comedy{-}drama"}\NormalTok{,}\StringTok{"Dark comedy"}\NormalTok{,}\StringTok{"Dance comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Comedy"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Christian musical"}\NormalTok{,}\StringTok{"Christmas"}\NormalTok{,}\StringTok{"Christmas comedy"}\NormalTok{,}\StringTok{"Christmas musical"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Christmas"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Crime drama"}\NormalTok{,}\StringTok{"Crime thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Crime"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Drama"}\NormalTok{,}\StringTok{"Drama{-}Comedy"}\NormalTok{,}\StringTok{"Supernatural drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Drama"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Family"}\NormalTok{,}\StringTok{"Family film"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Family"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Historical drama"}\NormalTok{,}\StringTok{"Historical{-}epic"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Historical"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Horror{-}thriller"}\NormalTok{,}\StringTok{"Horror thriller"}\NormalTok{,}\StringTok{"Horror comedy"}\NormalTok{,}\StringTok{"Horror anthology"}\NormalTok{,}\StringTok{"Horror"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Horror"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Musical"}\NormalTok{,}\StringTok{"Musical comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Musical"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Political thriller"}\NormalTok{,}\StringTok{"Psychological thriller"}\NormalTok{,}\StringTok{"Psychological thriller drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Psychological"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Romantic comedy"}\NormalTok{,}\StringTok{"Romantic comedy{-}drama"}\NormalTok{,}\StringTok{"Romantic drama"}\NormalTok{,}\StringTok{"Romance"}\NormalTok{,}\StringTok{"Romantic teenage drama"}\NormalTok{,}\StringTok{"Romantic thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Romance"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Science fiction adventure"}\NormalTok{,}\StringTok{"Science fiction thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Science fiction"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Sports film"}\NormalTok{,}\StringTok{"Sports{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Sports"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Spy thriller"}\NormalTok{,}\StringTok{"Thriller"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Thriller"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Superhero"}\NormalTok{,}\StringTok{"Superhero{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Superhero"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Teen comedy horror"}\NormalTok{,}\StringTok{"Teen comedy{-}drama"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Teen"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Variety Show"}\NormalTok{,}\StringTok{"Variety show"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"Variety"}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre[genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Genre }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"War"}\NormalTok{,}\StringTok{"War drama"}\NormalTok{,}\StringTok{"War{-}Comedy"}\NormalTok{)] }\OtherTok{\textless{}{-}} \StringTok{"War"}
+
+\NormalTok{genre\_score\_premiere }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(genre\_score\_premiere)}
+
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{".*?(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\}).*"}\NormalTok{, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Premiere)}
+\NormalTok{genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(genre\_score\_premiere}\SpecialCharTok{$}\NormalTok{Year)}
+\NormalTok{genre\_score\_premiere }\OtherTok{\textless{}{-}}\NormalTok{ genre\_score\_premiere[}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{]}
+
+
+
+
+\CommentTok{\# Primjena "one{-}hot encoding" na varijablu \textquotesingle{}Genre\textquotesingle{}}
+\NormalTok{score\_year\_genre\_d }\OtherTok{\textless{}{-}} \FunctionTok{dummy\_cols}\NormalTok{(genre\_score\_premiere, }\AttributeTok{select\_columns=}\StringTok{\textquotesingle{}Genre\textquotesingle{}}\NormalTok{, }\AttributeTok{remove\_first\_dummy =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Stvaranje linearnog modela}
+\NormalTok{lm\_score\_year\_genre }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{IMDB Score}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Year }\SpecialCharTok{+}\NormalTok{ ., }\AttributeTok{data=}\NormalTok{score\_year\_genre\_d)}
+
+\CommentTok{\# Prikazivanje rezultata modela}
+\FunctionTok{summary}\NormalTok{(lm\_score\_year\_genre)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = `IMDB Score` ~ Year + ., data = score_year_genre_d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4113 -0.4113  0.0289  0.5168  2.4009 
+## 
+## Coefficients: (43 not defined because of singularities)
+##                                      Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                         1.265e+02  4.958e+01   2.551 0.010974 *  
+## Year                               -5.981e-02  2.456e-02  -2.435 0.015167 *  
+## GenreAdventure                      7.550e-01  3.532e-01   2.137 0.032966 *  
+## GenreAftershow                      1.020e+00  3.937e-01   2.591 0.009812 ** 
+## GenreAnimation                      1.055e+00  2.784e-01   3.790 0.000166 ***
+## GenreAnime                          4.249e-01  4.640e-01   0.916 0.360140    
+## GenreAnthology                      1.920e+00  8.707e-01   2.205 0.027844 *  
+## GenreBiographical                   1.000e+00  8.703e-01   1.149 0.250941    
+## GenreBiopic                         6.400e-01  3.387e-01   1.890 0.059293 .  
+## GenreChristmas                      7.332e-01  3.942e-01   1.860 0.063412 .  
+## GenreComedy                         5.903e-02  2.074e-01   0.285 0.776035    
+## GenreConcert Film                   1.863e+00  3.936e-01   4.735 2.74e-06 ***
+## GenreCrime                          9.369e-01  3.001e-01   3.122 0.001883 ** 
+## GenreDocumentary                    1.171e+00  1.974e-01   5.933 5.04e-09 ***
+## GenreDrama                          5.627e-01  2.081e-01   2.704 0.007043 ** 
+## GenreFamily                         1.884e-01  3.718e-01   0.507 0.612597    
+## GenreFantasy                        3.191e-02  4.232e-01   0.075 0.939922    
+## GenreHeist                         -9.201e-01  5.249e-01  -1.753 0.080140 .  
+## GenreHidden-camera prank comedy     9.796e-01  8.719e-01   1.123 0.261698    
+## GenreHistorical                     1.280e+00  6.291e-01   2.035 0.042327 *  
+## GenreHoliday                        4.198e-01  8.707e-01   0.482 0.629914    
+## GenreHorror                        -3.727e-01  2.692e-01  -1.384 0.166777    
+## GenreInterview                      1.020e+00  3.937e-01   2.591 0.009812 ** 
+## GenreMaking-of                      1.740e+00  6.294e-01   2.764 0.005880 ** 
+## GenreMentalism special              1.300e+00  8.703e-01   1.494 0.135732    
+## GenreMockumentary                   2.023e-02  6.298e-01   0.032 0.974390    
+## GenreMusical                        3.520e-01  3.266e-01   1.078 0.281606    
+## GenreMystery                       -8.067e-01  5.248e-01  -1.537 0.124740    
+## GenreOne-man show                   1.314e+00  5.253e-01   2.500 0.012673 *  
+## GenrePsychological                  2.864e-01  3.948e-01   0.726 0.468424    
+## GenrePsychological horror           1.001e-01  8.703e-01   0.115 0.908439    
+## GenreRomance                        1.756e-01  2.180e-01   0.805 0.420935    
+## GenreSatire                         1.335e-04  6.293e-01   0.000 0.999831    
+## GenreScience fiction                2.950e-02  2.692e-01   0.110 0.912775    
+## GenreShort                          1.083e+00  3.721e-01   2.910 0.003752 ** 
+## GenreSports                         3.450e-01  4.638e-01   0.744 0.457245    
+## GenreStop Motion                    5.198e-01  8.707e-01   0.597 0.550769    
+## GenreSuperhero                     -3.283e-01  4.246e-01  -0.773 0.439743    
+## GenreTeen                          -1.298e-01  6.298e-01  -0.206 0.836820    
+## GenreThriller                      -1.156e-01  2.294e-01  -0.504 0.614529    
+## GenreUrban fantasy                  4.403e-01  8.711e-01   0.505 0.613428    
+## GenreVariety                        3.480e-01  4.230e-01   0.823 0.411071    
+## GenreWar                            8.803e-01  4.251e-01   2.071 0.038810 *  
+## GenreWestern                       -3.347e-01  4.657e-01  -0.719 0.472618    
+## GenreZombie                         2.796e-01  8.719e-01   0.321 0.748599    
+## Genre_Adventure                            NA         NA      NA       NA    
+## Genre_Aftershow                            NA         NA      NA       NA    
+## Genre_Animation                            NA         NA      NA       NA    
+## Genre_Anime                                NA         NA      NA       NA    
+## Genre_Anthology                            NA         NA      NA       NA    
+## Genre_Biographical                         NA         NA      NA       NA    
+## Genre_Biopic                               NA         NA      NA       NA    
+## Genre_Christmas                            NA         NA      NA       NA    
+## Genre_Comedy                               NA         NA      NA       NA    
+## `Genre_Concert Film`                       NA         NA      NA       NA    
+## Genre_Crime                                NA         NA      NA       NA    
+## Genre_Documentary                          NA         NA      NA       NA    
+## Genre_Drama                                NA         NA      NA       NA    
+## Genre_Family                               NA         NA      NA       NA    
+## Genre_Fantasy                              NA         NA      NA       NA    
+## Genre_Heist                                NA         NA      NA       NA    
+## `Genre_Hidden-camera prank comedy`         NA         NA      NA       NA    
+## Genre_Historical                           NA         NA      NA       NA    
+## Genre_Holiday                              NA         NA      NA       NA    
+## Genre_Horror                               NA         NA      NA       NA    
+## Genre_Interview                            NA         NA      NA       NA    
+## `Genre_Making-of`                          NA         NA      NA       NA    
+## `Genre_Mentalism special`                  NA         NA      NA       NA    
+## Genre_Mockumentary                         NA         NA      NA       NA    
+## Genre_Musical                              NA         NA      NA       NA    
+## Genre_Mystery                              NA         NA      NA       NA    
+## `Genre_One-man show`                       NA         NA      NA       NA    
+## Genre_Psychological                        NA         NA      NA       NA    
+## `Genre_Psychological horror`               NA         NA      NA       NA    
+## Genre_Romance                              NA         NA      NA       NA    
+## Genre_Satire                               NA         NA      NA       NA    
+## `Genre_Science fiction`                    NA         NA      NA       NA    
+## Genre_Short                                NA         NA      NA       NA    
+## Genre_Sports                               NA         NA      NA       NA    
+## `Genre_Stop Motion`                        NA         NA      NA       NA    
+## Genre_Superhero                            NA         NA      NA       NA    
+## Genre_Teen                                 NA         NA      NA       NA    
+## Genre_Thriller                             NA         NA      NA       NA    
+## `Genre_Urban fantasy`                      NA         NA      NA       NA    
+## Genre_Variety                              NA         NA      NA       NA    
+## Genre_War                                  NA         NA      NA       NA    
+## Genre_Western                              NA         NA      NA       NA    
+## Genre_Zombie                               NA         NA      NA       NA    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.8501 on 598 degrees of freedom
+## Multiple R-squared:  0.3154, Adjusted R-squared:  0.2651 
+## F-statistic: 6.263 on 44 and 598 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Iz gornje priloženog testa zaključujemo da godina premijere u
+kombinaciji sa žanrom objašnjava čak 31.5\% varijance izlaznih
+vrijednosti u ovisnosti o ulaznim varijablama. To je također najveći R2
+koji smo dobili.
+
+\end{document}

@@ -1,6 +1,8 @@
 ---
-title: "Redemption_statistika"
-output: html_document
+title: "Netflix filmovi"
+output:
+  pdf_document: default
+  html_document: default
 date: "2023-12-16"
 ---
 
@@ -15,8 +17,8 @@ library(lubridate)
 library(graphics)
 library(plotrix)
 library(ggplot2)
-library(ggpubr)
-library(broom)
+  library(ggpubr)
+  library(broom)
 library(AICcmodavg)
 ```
 
@@ -76,7 +78,7 @@ genre_language$Genre[genre_language$Genre %in% c("War","War drama","War-Comedy")
 
 **PRVO PITANJE**
 ```{r}
-#rastavimo po jezicima
+#pojednostavljamo jezike
 genre_language$Language[genre_language$Language=="English/Japanese"] <- "Japanese"
 genre_language$Language[genre_language$Language=="English/Spanish"] <- "Spanish"
 genre_language$Language[genre_language$Language=="Spanish/Basque"] <- "Spanish"
@@ -100,7 +102,7 @@ genre_language
 
 
 table(genre_language$Language) %>% sort()
-#razdvajamo po jezicima
+#uzimamo u obzir top 10 zastupljenih jezika
 data_Portugese <- subset(genre_language,  Language== "Portuguese")
 data_Italian <- subset(genre_language,  Language== "Italian")
 data_French <- subset(genre_language,  Language== "French")
@@ -124,9 +126,9 @@ data_Korean$Genre <- factor(data_Korean$Genre)
 data_Turkish$Genre <- factor(data_Turkish$Genre)
 
 
-ggplot(data_Portugese, aes(x = Genre)) +
+ggplot(data_Spanish, aes(x = Genre)) +
   geom_bar(fill = "skyblue", color = "black") +
-  labs(title = "Broj filmova po žanru", x = "Žanr", y = "Broj filmova")
+  labs(title = "Broj filmova po žanru - španjolski jezik", x = "Žanr", y = "Broj filmova")
 
 
 table(data_English$Genre)
@@ -134,14 +136,14 @@ table(data_English$Genre)
 # Brojanje pojavljivanja žanrova
 genre_counts <- data_English %>% count(Genre)
 
-# Filtriranje žanrova koji se pojavljuju 10 ili više puta
+# Filtriranje žanrova koji se pojavljuju 8 ili više puta
 data_English_filtered <- data_English %>% 
   filter(Genre %in% genre_counts$Genre[genre_counts$n >= 8])
 
 
 ggplot(data_English_filtered, aes(x = Genre)) +
   geom_bar(fill = "skyblue", color = "black") +
-  labs(title = "Broj filmova po žanru", x = "Žanr", y = "Broj filmova")+
+  labs(title = "Broj filmova po žanru - engleski jezik", x = "Žanr", y = "Broj filmova")+
   theme(axis.text.x = element_text(angle=45,hjust = 1))
 
 
@@ -162,14 +164,12 @@ Iz ove tablice možemo zaključiti da ne možemo koristiti Hi-kvadrat test jer p
 ```{r}
 # Kreiranje kontingencijske tablice
 contingency_table <- table(genre_language_filtered$Genre, genre_language_filtered$Language)
-
-
-barplot(contingency_table, col = c("red", "blue"), beside = TRUE, legend = TRUE)
+contingency_table
 
 
 ```
 
-Razlog korištenja Fisherovog testa je ne mogućnost korištenja Hi-kvadrat testa
+Razlog korištenja Fisherovog testa je nemogućnost korištenja Hi-kvadrat testa
 Postavljanje hipoteza:
 H0: ne postoji povezanost između Žanra i Područja
 H1: postoji povezanost između Žanra i Područja
@@ -184,11 +184,11 @@ ggplot(as.data.frame.table(contingency_table), aes(x = Var1, y = Var2, fill = lo
   scale_fill_gradient(low = "white", high = "red") +
   labs(title = "Heatmap - Fisherov test" ,x = "Genre", y = "Language",fill="Frekvencija") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = -0.02))
 
 
 ```
-Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da postoji povezanost između Zanra i Područja, što se također može zaključiti i it heatmap-a kod kojeg uočavamo samo par odstupanja (npr. za engleski vidimo veću zastupljenost Christmas i Crime žanrova).
+Sudeći po p-vrijednosti koja je veća alpha vrijednosti, nemamo dovoljno statističkih dokaza da odbacimo H0 hipotezu tj. ne možemo zaključiti da postoji povezanost između Žanra i Područja, što se također može zaključiti i it heatmap-a kod kojeg uočavamo samo par odstupanja (npr. za engleski vidimo veću zastupljenost Christmas i Crime žanrova).
 
 
 **DRUGO PITANJE**
@@ -213,7 +213,6 @@ Kad primjenimo logaritam uočavamo da se situacija poboljšava u desnom repu tj 
 ```{r}
 #mozemo gledati više žanrova kao da je svaki svoj stupac ili budu svi u jednom stupcu pa da trazimo u tom stringu odredeni žanr
 data_genre_sep <- separate(data2,Genre,into = c("Genre_1","Genre_2","Genre_3","Genre_4"),sep = "/",remove = T)
-data_genre_sep
 
 
 data1 <- data_genre_sep
@@ -229,7 +228,6 @@ colnames(genre_3_runtime)[1] <- "Genre"
 colnames(genre_4_runtime)[1] <- "Genre"
 
 genre_runtime <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
-genre_runtime
 genre_runtime$Genre <- str_trim(genre_runtime$Genre)
 
 genre_runtime$Genre[genre_runtime$Genre=="Musicial"] <- "Musical"
@@ -260,20 +258,18 @@ genre_runtime$Genre[genre_runtime$Genre %in% c("Variety Show","Variety show")] <
 genre_runtime$Genre[genre_runtime$Genre %in% c("War","War drama","War-Comedy")] <- "War"
 
 genre_runtime <- na.omit(genre_runtime)
-genre_runtime
-
-table(genre_runtime$Genre) %>% sort()
 
 
-qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , pch = 1, frame = FALSE,main='Normalna razdioba trajanja akcijskih filmova');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
 
 boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Action",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Action", ylab = "Trajanje (min)")
 
-qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Comedy"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Comedy"] , pch = 1, frame = FALSE,main='Normalna razdioba trajanja komedija');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
 
 boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Comedy",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Comedy", ylab = "Trajanje (min)")
 
-qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Documentary"] , pch = 1, frame = FALSE,main='Runtime');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
+qqnorm(genre_runtime$Runtime[genre_runtime$Genre=="Documentary"] , pch = 1, frame = FALSE,main='Normalna razdioba trajanja dokumentaraca');qqline(genre_runtime$Runtime[genre_runtime$Genre=="Action"] , col = "steelblue", lwd = 2)
 
 boxplot(Runtime ~ Genre, data = genre_runtime[genre_runtime$Genre=="Documentary",], col = "lightgreen", main = "Boxplot - Trajanje filmova žanra Documentary", ylab = "Trajanje (min)")
 
@@ -329,14 +325,14 @@ genre_runtime_mean %>%
 **TRECE PITANJE**
 ```{r}
 data3 <- data2
-data3
+
 
 data3$Year <- sub(".*?(\\d{4}).*", "\\1", data3$Premiere)
-data3
+
 score_year <- data3[, c("IMDB Score", "Year")]
-score_year
+
 score_year$Year <- as.numeric(score_year$Year)
-score_year
+
 summary(score_year)
 
 
@@ -346,19 +342,20 @@ score_year <- mutate(score_year, Year = ifelse(Year %in% c(2018, 2019), "srednji
 score_year <- mutate(score_year, Year = ifelse(Year %in% c(2020, 2021), "novi", as.character(Year)))
 
 score_year$Year <- as.factor(score_year$Year)
-score_year
+
 
 
 ggplot(score_year, aes(x = Year, y = `IMDB Score`, fill = Year)) +
   geom_boxplot() +
   labs(title = "Boxplot - IMDB Score po Godini", y = "IMDB Score") +
-  scale_fill_manual(values = c("srednji" = "lightblue", "novi" = "lightgreen")) +
+  scale_fill_manual(values = c("srednji" = "lightblue", "novi" = "lightgreen", "stari" = "magenta")) +
   theme_minimal()
 ```
 
 ANOVA test za testiranje odnosa Razdoblja i IMDB Scorea
 H0: srednja vrijednost IMDB Scorea za sva Razdoblja je jednaka
 H1: srednja vrijednost IMDB Scorea za sva Razdoblja nije jednaka
+alfa = 0.05
 ```{r}
 # Izvršavanje ANOVA analize
 anova_result <- aov(`IMDB Score` ~ Year, data = score_year)
@@ -382,6 +379,7 @@ data4 <- data4[,c("Runtime","IMDB Score")]
 
 
 boxplot(data4$Runtime)
+boxplot(data4$`IMDB Score`)
 summary(data4$Runtime)
 
 
@@ -399,18 +397,18 @@ ggplot(data4, aes(x = Runtime, y = `IMDB Score`)) +
 
 Ako uzmemo u obzir sve filmove, vidimo blagi negativni trend u odnosu Ocjene i Duljine
 ```{r}
-# Izračunajte kvantil
+# Izračun kvantila
 quantile_threshold <- quantile(data4$Runtime, probs = 0.67)  # Top 33%
 
-# Izdvojite retke s 'Runtime' u top 33%
+# Izdvojeni retci s 'Runtime' u top 33%
 selected_rows <- data4 %>%
   filter(Runtime >= quantile_threshold)
 
 # Ispis odabranih redaka
 print(selected_rows)
 
-lmOcjene = lm(`IMDB Score`~Runtime , data = selected_rows) #Create the linear regression
-summary(lmOcjene) #Review the results
+lmOcjene = lm(`IMDB Score`~Runtime , data = selected_rows) #Model linearne regresije
+summary(lmOcjene) #Summary rezultata modela
 
 ggplot(selected_rows, aes(x = Runtime, y = `IMDB Score`)) +
   geom_point() +
@@ -420,7 +418,7 @@ ggplot(selected_rows, aes(x = Runtime, y = `IMDB Score`)) +
 
 
 reziduali <- residuals(lmOcjene)
-reziduali
+
 
 plot(reziduali)
 
@@ -435,7 +433,6 @@ Reziduali također imaju srednju vrijednost blizu nule, što je dobro. Srednja v
 ```{r}
 data5 <- data2
 score_runtime_language <-data5[,c("IMDB Score","Runtime","Language")] 
-score_runtime_language
 
 score_runtime_language$Language[score_runtime_language$Language=="English/Japanese"] <- "Japanese"
 score_runtime_language$Language[score_runtime_language$Language=="English/Spanish"] <- "Spanish"
@@ -454,14 +451,12 @@ score_runtime_language$Language[score_runtime_language$Language=="English/Russia
 score_runtime_language$Language[score_runtime_language$Language=="English/Akan"] <- "English"
 score_runtime_language$Language[score_runtime_language$Language=="English/Ukranian/Russian"] <- "Russian"
 
-score_runtime_language
 
 jezici_za_sadržavanje <- c("Portuguese", "Italian","French","Hindi","Spanish","English","Indonesian","Japanese","Korean","Turkish")
 
 # Filtrirajte podatke tako da uklonite retke s određenim žanrovima
 score_runtime_language_filtered <- score_runtime_language %>% filter(Language %in% jezici_za_sadržavanje)
 
-score_runtime_language_filtered
 
 require(fastDummies)
 score_runtime_language_filtered.d <- dummy_cols(score_runtime_language_filtered, select_columns='Language')
@@ -470,7 +465,7 @@ score_runtime_language_filtered.d <- dummy_cols(score_runtime_language_filtered,
 lm_score_runtime_lang <- lm(`IMDB Score`~Runtime + Language_English+Language_French+Language_Hindi+Language_Indonesian+Language_Italian+Language_Japanese+Language_Korean+Language_Portuguese+Language_Spanish+Language_Turkish, data=score_runtime_language_filtered.d)
 summary(lm_score_runtime_lang)
 ```
-Iz priloženog vidimo da nema korelacije između Ocjene filma te kombinacije Duljine trajanje i Jezika jer model objašnjava samo 4.4% varijance u izlaznim podacima, a sudeći po F-testu kombinacija Duljine filma te Jezika nema značajnog utjecaja na ishod ocjene 
+Iz priloženog vidimo da nema korelacije između Ocjene filma te kombinacije Duljine trajanje i Jezika jer model objašnjava samo 4.4% varijance u izlaznim podacima, a sudeći po F-testu kombinacija Duljine filma te Jezika nema značajnog utjecaja na ishod ocjene.
 
 ```{r}
 data5_plusGenre <- data_genre_sep
@@ -486,7 +481,6 @@ colnames(genre_3_runtime)[1] <- "Genre"
 colnames(genre_4_runtime)[1] <- "Genre"
 
 genre_runtime <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
-genre_runtime
 genre_runtime$Genre <- str_trim(genre_runtime$Genre)
 
 genre_runtime$Genre[genre_runtime$Genre=="Musicial"] <- "Musical"
@@ -540,7 +534,7 @@ summary(lm_score_genre)
 
 
 ```
-R² ovdje objašnjava čak 30% varijance i to potvrđuje jako mala p-vrijednost te nas upućuje na to da kombinacija Duljine i Žanra filma i značajan utjecaj na ocjenu
+R² ovdje objašnjava čak 34% varijance i to potvrđuje jako mala p-vrijednost te nas upućuje na to da kombinacija Duljine i Žanra filma i značajan utjecaj na ocjenu. U slučaju kada razmatramo samo utjecaj žanrova na score, tad je jasno da samo 30% varijance je objašnjeno u našem testu.
 
 
 ```{r}
@@ -557,7 +551,6 @@ colnames(genre_3_runtime)[1] <- "Genre"
 colnames(genre_4_runtime)[1] <- "Genre"
 
 genre_score_premiere <- rbind(genre_1_runtime,genre_2_runtime,genre_3_runtime,genre_4_runtime)
-genre_score_premiere
 genre_score_premiere$Genre <- str_trim(genre_score_premiere$Genre)
 
 genre_score_premiere$Genre[genre_score_premiere$Genre=="Musicial"] <- "Musical"
@@ -592,7 +585,7 @@ genre_score_premiere <- na.omit(genre_score_premiere)
 genre_score_premiere$Year <- sub(".*?(\\d{4}).*", "\\1", genre_score_premiere$Premiere)
 genre_score_premiere$Year <- as.numeric(genre_score_premiere$Year)
 genre_score_premiere <- genre_score_premiere[-2]
-genre_score_premiere
+
 
 
 
